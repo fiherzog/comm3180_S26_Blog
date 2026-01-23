@@ -1,5 +1,5 @@
 ---
-title: My Data Stories
+title: Fiona Herzog's Data Findings
 listing:
   contents: posts
   sort: date desc

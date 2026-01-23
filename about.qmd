@@ -5,4 +5,6 @@ about:
   template: jolla
 ---
 
-About this blog
+This blog is will contain Fiona's data explorations. Fiona Herzog is a student that is passionate about learning and utilizing technology to create an impact. She currently studies Communications & Computer Science with a concentration in Data and Network sicence at the University of Pennsylvania.
+ 
+For any questions and inquiries, feel free to e-mail her at fherzog@sas.upenn.edu
