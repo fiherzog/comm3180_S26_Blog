@@ -7,13 +7,6 @@
     "text": "This blog is will contain Fiona’s data explorations. Fiona Herzog is a student that is passionate about learning and utilizing technology to create an impact. She currently studies Communications & Computer Science with a concentration in Data and Network sicence at the University of Pennsylvania.\nFor any questions and inquiries, feel free to e-mail her at fherzog@sas.upenn.edu"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Fiona Herzog’s Data Findings",
-    "section": "",
-    "text": "A test post\n\n\n\nvisualization\n\ndata stories\n\n\n\nAn example post from a Jupyter notebook\n\n\n\n\n\nJan 12, 2026\n\n\nAn LLM User\n\n\n\n\n\nNo matching items"
-  },
-  {
     "objectID": "posts/000_test_post/index.html",
     "href": "posts/000_test_post/index.html",
     "title": "A test post",
@@ -26,5 +19,19 @@
     "title": "A test post",
     "section": "Stories from data",
     "text": "Stories from data\n\nLet’s set up some data\n\n\nx = ['A', 'B', 'C']\ny = [1, 5, 3]\n\n\nNow let’s visualize it\n\nplt.bar(x, y)\nplt.show()"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Fiona Herzog’s Data Findings",
+    "section": "",
+    "text": "☆ About Me ☆\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nA test post\n\n\n\nvisualization\n\ndata stories\n\n\n\nAn example post from a Jupyter notebook\n\n\n\n\n\nJan 12, 2026\n\n\nAn LLM User\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/002_introduction_post/introduction post.html",
+    "href": "posts/002_introduction_post/introduction post.html",
+    "title": "☆ About Me ☆",
+    "section": "",
+    "text": "title: “Fiona’s Introduction” description: “First Blog” author: “Fiona” date: “1/23/2026” categories: - Introduction\n\nHello, my name is Fiona Herzog. I am an undergraduate student at the University of Pennsylvania with a double major in Computer Science & Communications with a concentration in Data & Network Science.\nSome of my hobbies include baking (& eating bread), risoprinting, running, and traveling.\n\nMy favorite class I have taken is How to Make Things, where I got to make cool items like a 3D puzzle and end of year project of selling keychains.\nOver this winter break, I got the opportunity to go to Taiwan to see my family. Thus, I got the opportunity to eat yummy fresh fruits, go shrimp fishing, and even learn how to glass blow.\nWhile I have lost the ability to read books in full I am lucky to reach even just two books in a year, I am an avid reader of many articles. Coming from the Palisades, this article and exploration is particularly resonant to me. Speaking of which, I am from the greatest city in the world, Los Angeles. My winter break was plenty warm and I spent most of it sunbathing 𖤓"
   }
 ]
