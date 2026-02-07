@@ -2,18 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://fiherzog.github.io/comm3180_S26_Blog/about.html</loc>
-    <lastmod>2026-01-26T16:31:41.832Z</lastmod>
+    <lastmod>2026-02-07T05:27:15.469Z</lastmod>
   </url>
   <url>
-    <loc>https://fiherzog.github.io/comm3180_S26_Blog/posts/000_test_post/index.html</loc>
-    <lastmod>2026-01-26T16:31:41.832Z</lastmod>
+    <loc>https://fiherzog.github.io/comm3180_S26_Blog/posts/003_philly_weather_post/weather_post.html</loc>
+    <lastmod>2026-02-07T05:27:15.473Z</lastmod>
   </url>
   <url>
     <loc>https://fiherzog.github.io/comm3180_S26_Blog/index.html</loc>
-    <lastmod>2026-01-26T16:31:41.832Z</lastmod>
+    <lastmod>2026-02-07T05:27:15.469Z</lastmod>
+  </url>
+  <url>
+    <loc>https://fiherzog.github.io/comm3180_S26_Blog/posts/000_test_post/index.html</loc>
+    <lastmod>2026-02-07T05:27:15.469Z</lastmod>
   </url>
   <url>
     <loc>https://fiherzog.github.io/comm3180_S26_Blog/posts/002_introduction_post/introduction post.html</loc>
-    <lastmod>2026-01-26T16:31:41.832Z</lastmod>
+    <lastmod>2026-02-07T05:27:15.470Z</lastmod>
   </url>
 </urlset>
