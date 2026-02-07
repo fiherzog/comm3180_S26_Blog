@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Fiona Herzog">
+<meta name="dcterms.date" content="2026-02-07">
+<meta name="description" content="To what extent has Philadelphia weather become more volatile?">
 
-<title>Workbook for DOW#1 – Fiona Herzog’s Data Findings</title>
+<title>Climate Change in Philadelphia – Fiona Herzog’s Data Findings</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -145,14 +148,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Workbook for DOW#1</h1>
-                      </div>
+      <h1 class="title">Climate Change in Philadelphia</h1>
+                  <div>
+        <div class="description">
+          To what extent has Philadelphia weather become more volatile?
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">visualization</div>
+                <div class="quarto-category">data stories</div>
+              </div>
+                  </div>
   </div>
     
   
   <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Fiona Herzog </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">February 7, 2026</p>
+      </div>
+    </div>
     
       
     </div>
@@ -169,95 +193,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<ul>
-<li>Use this notebook to organize your analysis of the Philadelphia weather dataset</li>
-<li>Remember to document EVERYTHING with Markdown cells</li>
-<li>Set out the questions that you want to answer from the data</li>
-</ul>
-<section id="setup" class="level3">
-<h3 class="anchored" data-anchor-id="setup">Setup</h3>
-<div id="ca3db066-9b00-4534-a4c5-ce8c907c6105" class="cell">
+<section id="to-what-extent-has-philadelphia-weather-become-more-volatile" class="level2">
+<h2 class="anchored" data-anchor-id="to-what-extent-has-philadelphia-weather-become-more-volatile">To what extent has Philadelphia weather become more volatile?</h2>
+<p>Since moving to Philadelphia, I’ve been told that the climates that I’ve grown accustomed to are very different to even just 10-20 years ago. Thus, this is a data exploration on just how much Philadelphia weather has not only changed, but has also become more volatile as the effects of climate change have gotten all the more apparent.</p>
+<p>Thus, in this data exploration, we will examine many different facets of Phildelphia weather across the ten year time span to answer this question.</p>
+<section id="setup-my-environement" class="level4">
+<h4 class="anchored" data-anchor-id="setup-my-environement">Setup my environement</h4>
+<div id="ca3db066-9b00-4534-a4c5-ce8c907c6105" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="load-the-dataset" class="level3">
-<h3 class="anchored" data-anchor-id="load-the-dataset">Load the dataset</h3>
-<div id="d0e9a066-5c0f-449f-8fd5-bddef5402f90" class="cell">
+<section id="load-the-dataset" class="level4">
+<h4 class="anchored" data-anchor-id="load-the-dataset">Load the dataset</h4>
+<div id="d0e9a066-5c0f-449f-8fd5-bddef5402f90" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>weather_df <span class="op">=</span> pd.read_csv(<span class="st">'data/philadelphia_weather_2005_to_2025.csv'</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>weather_df <span class="op">=</span> weather_df.assign(date<span class="op">=</span>pd.to_datetime(weather_df[<span class="st">'date'</span>]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="inspect-the-data" class="level4">
-<h4 class="anchored" data-anchor-id="inspect-the-data">Inspect the data</h4>
-<ul>
-<li>We have looked at these data in a couple of previous notebooks</li>
-<li>Remind yourself of the columns</li>
-<li>Here the data goes from 2005 to 2025</li>
-</ul>
-<div id="3b758f17-c0d2-467d-9312-9f450389ed77" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>weather_df.columns</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="6e77eecc-8709-46f4-85bb-0d8f0942bc63" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>weather_df.tail()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="7242ffef-6cac-4e22-a542-bc2589eba431" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>weather_df[<span class="st">'year'</span>].value_counts()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
-<pre><code>year
-2008    366
-2020    366
-2024    366
-2016    366
-2012    366
-2009    365
-2007    365
-2006    365
-2005    365
-2013    365
-2014    365
-2011    365
-2010    365
-2017    365
-2015    365
-2019    365
-2018    365
-2021    365
-2022    365
-2023    365
-2025    365
-Name: count, dtype: int64</code></pre>
-</div>
-</div>
 </section>
-</section>
-<section id="data-exploration" class="level2">
-<h2 class="anchored" data-anchor-id="data-exploration">Data Exploration</h2>
-</section>
-<section id="to-what-extent-has-philadelphia-weather-become-more-volatile" class="level2">
-<h2 class="anchored" data-anchor-id="to-what-extent-has-philadelphia-weather-become-more-volatile">To what extent has Philadelphia weather become more volatile?</h2>
-<p>Since moving to Philadelphia, I’ve been told that the climates that I’ve grown accustomed to are very different to even just 10-20 years ago. Thus, this is a data exploration on just how much Philadelphia weather has not only changed, but has also become more volatile as the effects of climate change have gotten all the more apparent.</p>
-<p>Thus, in this data exploration, we will examine many different facets of Phildelphia weather across the ten year time span to answer this question.</p>
 <section id="normalization-of-extreme-heat" class="level3">
 <h3 class="anchored" data-anchor-id="normalization-of-extreme-heat">Normalization of Extreme Heat</h3>
 <p>Has there been a significant increase in the frequency of “extreme” heatdays? To answer this question, we define an “extreme heat day” as any day where the highest temperature of the day exceeds 90 degrees Fahrenheit. We will then track the trends in the number of extreme heat days by year to determine whether there is any significant trend.</p>
-<div id="b96811e8-499b-4733-bb62-97951646282f" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># defining extreme heat</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>extreme_heat <span class="op">=</span> weather_df[weather_df[<span class="st">'high'</span>] <span class="op">&gt;</span> <span class="dv">90</span>]</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># calculating annual extreme heat frequency</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>heat_yearly_counts <span class="op">=</span> extreme_heat.groupby(<span class="st">'year'</span>).size()</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># plotting our findings</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>heat_yearly_counts.plot(kind<span class="op">=</span><span class="st">'bar'</span>, color<span class="op">=</span><span class="st">'orangered'</span>)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Frequency of Days Above 90°F (Philadelphia)'</span>)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Number of Days'</span>)</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Year'</span>)</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="b96811e8-499b-4733-bb62-97951646282f" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># defining extreme heat</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>extreme_heat <span class="op">=</span> weather_df[weather_df[<span class="st">'high'</span>] <span class="op">&gt;</span> <span class="dv">90</span>]</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># calculating annual extreme heat frequency</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>heat_yearly_counts <span class="op">=</span> extreme_heat.groupby(<span class="st">'year'</span>).size()</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># plotting our findings</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>heat_yearly_counts.plot(kind<span class="op">=</span><span class="st">'bar'</span>, color<span class="op">=</span><span class="st">'orangered'</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Frequency of Days Above 90°F (Philadelphia)'</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Number of Days'</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Year'</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="weather_post_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="weather_post_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -267,44 +241,44 @@ Name: count, dtype: int64</code></pre>
 <section id="volatility-of-the-rain-cycle" class="level3">
 <h3 class="anchored" data-anchor-id="volatility-of-the-rain-cycle">Volatility of the Rain Cycle</h3>
 <p>Have rainfall patterns changed from steady percipitation to more concentrated bursts of rain? We will look at the ratio of light rain days to heavy rain days per year. In this question, heavy rain is defined as anything above one inch.</p>
-<div id="ceca3c14-ece2-460d-888e-dfeb6ad2d41f" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># defining heavy rain</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>weather_df[<span class="st">'is_heavy_rain'</span>] <span class="op">=</span> weather_df[<span class="st">'rain'</span>] <span class="op">&gt;</span> <span class="fl">1.0</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate annual heavy rain events</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>heavy_rain_annual <span class="op">=</span> weather_df[weather_df[<span class="st">'is_heavy_rain'</span>]].groupby(<span class="st">'year'</span>).size()</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate annual rain frequency</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>rainy_days <span class="op">=</span> weather_df[weather_df[<span class="st">'rain'</span>] <span class="op">&gt;</span> <span class="dv">0</span>].groupby(<span class="st">'year'</span>)</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>intensity_index <span class="op">=</span> rainy_days[<span class="st">'rain'</span>].<span class="bu">sum</span>() <span class="op">/</span> rainy_days.size()</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>sns.lineplot(x<span class="op">=</span>intensity_index.index, y<span class="op">=</span>intensity_index.values, marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'teal'</span>)</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Rain Intensity Index: Is there more rain when it does rain?'</span>)</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Avg Rain per Rain Event (Inches)'</span>)</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>plt.show() </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="ceca3c14-ece2-460d-888e-dfeb6ad2d41f" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># defining heavy rain</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>weather_df[<span class="st">'is_heavy_rain'</span>] <span class="op">=</span> weather_df[<span class="st">'rain'</span>] <span class="op">&gt;</span> <span class="fl">1.0</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate annual heavy rain events</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>heavy_rain_annual <span class="op">=</span> weather_df[weather_df[<span class="st">'is_heavy_rain'</span>]].groupby(<span class="st">'year'</span>).size()</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate annual rain frequency</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>rainy_days <span class="op">=</span> weather_df[weather_df[<span class="st">'rain'</span>] <span class="op">&gt;</span> <span class="dv">0</span>].groupby(<span class="st">'year'</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>intensity_index <span class="op">=</span> rainy_days[<span class="st">'rain'</span>].<span class="bu">sum</span>() <span class="op">/</span> rainy_days.size()</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>sns.lineplot(x<span class="op">=</span>intensity_index.index, y<span class="op">=</span>intensity_index.values, marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'teal'</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Rain Intensity Index: Is there more rain when it does rain?'</span>)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Avg Rain per Rain Event (Inches)'</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>plt.show() </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="weather_post_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="weather_post_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>The line graph goes up and down across each year pretty consistently, indicating that average rain amount for each time it rains varies a lot. While the highest average rain count happens in 2011, the lowest is this most recent year of 2025, with an overall trend downwards in amount of rain in the most recent years. The volatility of the amount of rain reached a peak in 2012, reaching a local minimum after the initial peak.</p>
-<div id="ac1727c5-e107-48fd-86a2-3d74f19bce46" class="cell" data-execution_count="9">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>heavy_rain_annual.plot(kind<span class="op">=</span><span class="st">'bar'</span>, color<span class="op">=</span><span class="st">'midnightblue'</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Annual Count of Extreme Rain Events (&gt;1 inch)'</span>)</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Number of Days per Year'</span>)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Year'</span>)</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>)</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="ac1727c5-e107-48fd-86a2-3d74f19bce46" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>heavy_rain_annual.plot(kind<span class="op">=</span><span class="st">'bar'</span>, color<span class="op">=</span><span class="st">'midnightblue'</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Annual Count of Extreme Rain Events (&gt;1 inch)'</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Number of Days per Year'</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Year'</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="weather_post_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="weather_post_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -314,25 +288,25 @@ Name: count, dtype: int64</code></pre>
 <section id="are-false-springs-or-late-freezes-becoming-more-common" class="level3">
 <h3 class="anchored" data-anchor-id="are-false-springs-or-late-freezes-becoming-more-common">Are ‘False Spring’s’ or ‘Late Freezes’ Becoming more common?</h3>
 <p>A ‘False Spring’ occurs when a warm spell in February or March is followed by a sharp freeze. A ‘Late Freeze’ is when describes the same phenomenon. This volatile pattern is something of concern because it can kill local vegetation that began to bud early. We will look for days where the temperature dropped by a significant margin (e.g., 20+ degrees) within a 48-hour window in the spring.</p>
-<div id="0f8c2843-4a82-4736-8b2b-f75947e6f524" class="cell" data-execution_count="11">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the change in 'high' temperature from the previous day</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>weather_df[<span class="st">'temp_change'</span>] <span class="op">=</span> weather_df[<span class="st">'high'</span>].diff()</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining a 'Thermal Shock' as a 20-degree drop in 24 hours during Spring (March/April/May)</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>spring_shocks <span class="op">=</span> weather_df[(weather_df[<span class="st">'month_num'</span>].isin([<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>])) <span class="op">&amp;</span> (weather_df[<span class="st">'temp_change'</span>] <span class="op">&lt;=</span> <span class="op">-</span><span class="dv">20</span>)]</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Count these shocks per year</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>annual_shocks <span class="op">=</span> spring_shocks.groupby(<span class="st">'year'</span>).size()</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>sns.barplot(x<span class="op">=</span>annual_shocks.index, y<span class="op">=</span>annual_shocks.values)</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Philadelphia Spring Thermal Shocks (20°F+ Drop in 24h in months March/April/May)'</span>)</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Number of Events'</span>)</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="0f8c2843-4a82-4736-8b2b-f75947e6f524" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the change in 'high' temperature from the previous day</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>weather_df[<span class="st">'temp_change'</span>] <span class="op">=</span> weather_df[<span class="st">'high'</span>].diff()</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining a 'Thermal Shock' as a 20-degree drop in 24 hours during Spring (March/April/May)</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>spring_shocks <span class="op">=</span> weather_df[(weather_df[<span class="st">'month_num'</span>].isin([<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>])) <span class="op">&amp;</span> (weather_df[<span class="st">'temp_change'</span>] <span class="op">&lt;=</span> <span class="op">-</span><span class="dv">20</span>)]</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Count these shocks per year</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>annual_shocks <span class="op">=</span> spring_shocks.groupby(<span class="st">'year'</span>).size()</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>sns.barplot(x<span class="op">=</span>annual_shocks.index, y<span class="op">=</span>annual_shocks.values)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Philadelphia Spring Thermal Shocks (20°F+ Drop in 24h in months March/April/May)'</span>)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Number of Events'</span>)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="weather_post_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="weather_post_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -343,51 +317,51 @@ Name: count, dtype: int64</code></pre>
 <h3 class="anchored" data-anchor-id="how-predictable-are-the-temperatures-of-each-month">How predictable are the temperatures of each month?</h3>
 <p>If the weather is more volatile and unpredictable, the standard deviations of the month should be increasing. Thus, we can compare the standard deiations across the years to see if this is the case.</p>
 <div id="a1560208-f909-4b8f-983b-ba286110af06" class="cell" data-execution_count="19">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>weather_df[<span class="st">"year"</span>] <span class="op">=</span> weather_df[<span class="st">"date"</span>].dt.year</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>yearly_volatility <span class="op">=</span> (</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    weather_df.groupby(<span class="st">"year"</span>)[<span class="st">"high"</span>]</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>      .std()</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>      .reset_index(name<span class="op">=</span><span class="st">"temp_std"</span>)</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>sns.lineplot(</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>yearly_volatility,</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"year"</span>,</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"temp_std"</span>,</span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span> <span class="st">"red"</span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Annual Temperature Volatility in Philadelphia"</span>)</span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Year"</span>)</span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Standard Deviation of Daily High Temperature"</span>)</span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>weather_df[<span class="st">"year"</span>] <span class="op">=</span> weather_df[<span class="st">"date"</span>].dt.year</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>yearly_volatility <span class="op">=</span> (</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    weather_df.groupby(<span class="st">"year"</span>)[<span class="st">"high"</span>]</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>      .std()</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>      .reset_index(name<span class="op">=</span><span class="st">"temp_std"</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>sns.lineplot(</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>yearly_volatility,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">"year"</span>,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">"temp_std"</span>,</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span> <span class="st">"red"</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Annual Temperature Volatility in Philadelphia"</span>)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Year"</span>)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Standard Deviation of Daily High Temperature"</span>)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="weather_post_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="weather_post_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Rather than increasing monotonically, the temperature volatility fluctuates every year, indicating that variability is inherent to Philadelphia’s weather. Rather than the standard deviation consistently increasing, we see that adist the fluctuations, the global minimum actually occurs in 2022. Short-term drops in volatility are followed by rapid rebounds. Overall variability remains relatively high across the entire time span. The standard deviation consistently stays within a fairly narrow band (roughly mid-to-high teens), indicating that Philadelphia has experienced substantial temperature variability throughout the period studied.</p>
 <div id="dab79829-6a1f-4ac3-8245-36eb4730d2d0" class="cell" data-execution_count="23">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the standard deviation of 'high' temps for every month/year</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>monthly_std <span class="op">=</span> weather_df.groupby([<span class="st">'year'</span>, <span class="st">'month_num'</span>])[<span class="st">'high'</span>].std().reset_index()</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>heatmap_data <span class="op">=</span> monthly_std.pivot(index<span class="op">=</span><span class="st">"month_num"</span>, columns<span class="op">=</span><span class="st">"year"</span>, values<span class="op">=</span><span class="st">"high"</span>)</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">8</span>))</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>sns.heatmap(heatmap_data, cmap<span class="op">=</span><span class="st">"YlOrRd"</span>, annot<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Temperature Volatility Map (Standard Deviation by Month)'</span>)</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Year'</span>)</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Month (1=Jan, 12=Dec)'</span>)</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the standard deviation of 'high' temps for every month/year</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>monthly_std <span class="op">=</span> weather_df.groupby([<span class="st">'year'</span>, <span class="st">'month_num'</span>])[<span class="st">'high'</span>].std().reset_index()</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>heatmap_data <span class="op">=</span> monthly_std.pivot(index<span class="op">=</span><span class="st">"month_num"</span>, columns<span class="op">=</span><span class="st">"year"</span>, values<span class="op">=</span><span class="st">"high"</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">8</span>))</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>sns.heatmap(heatmap_data, cmap<span class="op">=</span><span class="st">"YlOrRd"</span>, annot<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Temperature Volatility Map (Standard Deviation by Month)'</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Year'</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Month (1=Jan, 12=Dec)'</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="weather_post_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="weather_post_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
