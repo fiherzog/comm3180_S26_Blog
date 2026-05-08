@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Fiona Herzog">
+<meta name="dcterms.date" content="2026-05-08">
+<meta name="description" content="Which restaurants in which boroughs face the most food violations — and what kinds?">
+
+<title>What’s Really in Your Food? NYC Restaurant Violations by Borough and Cuisine – Fiona Herzog's Data Findings</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-5a335638c95573c74d3de04ac0781048.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Fiona Herzog’s Data Findings</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/fiherzog/comm3180_S26_Blog"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">What’s Really in Your Food? NYC Restaurant Violations by Borough and Cuisine</h1>
+                  <div>
+        <div class="description">
+          Which restaurants in which boroughs face the most food violations — and what kinds?
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">visualization</div>
+                <div class="quarto-category">data stories</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Fiona Herzog </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">May 8, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="whats-really-in-your-food-nyc-restaurant-violations-by-borough-and-cuisine" class="level1">
+<h1>What’s Really in Your Food? NYC Restaurant Violations by Borough and Cuisine</h1>
+<section id="which-restaurants-in-which-boroughs-face-the-most-food-violations-and-what-kinds" class="level2">
+<h2 class="anchored" data-anchor-id="which-restaurants-in-which-boroughs-face-the-most-food-violations-and-what-kinds">Which restaurants in which boroughs face the most food violations — and what kinds?</h2>
+<p><strong>Author:</strong> Fiona Herzog<br>
+- <code>DOHMH_New_York_City_Restaurant_Inspection_Results_20260508.csv</code> — NYC Department of Health and Mental Hygiene restaurant inspection records through May 2026 (296,488 inspection records across all five boroughs)</p>
+<p>New York City inspects every restaurant at least once a year. Each visit can produce zero violations — or a cascade of citations ranging from a missing thermometer to live rats in the kitchen. The city grades restaurants A through C, posts results online, and can force closures when things get dire enough.</p>
+<p>That inspection data is public. And it is extremely detailed: every citation carries a violation code, a description, a critical/non-critical flag, and a numeric score. A higher score means more (and more serious) violations — a Grade A requires a score below 14, Grade B is 14–27, and Grade C is 28 or above.</p>
+<p>This notebook asks: <strong>which kinds of restaurants, in which boroughs, accumulate the most violations — and what are those violations actually about?</strong></p>
+<p><strong>Subquestions:</strong> - <strong>Q1</strong> Which borough racks up the most violations overall, and which gets its restaurants shut down most? - <strong>Q2</strong> Which cuisine types earn the worst inspection scores and the most critical citations? - <strong>Q3</strong> What violation <em>categories</em> dominate citywide — and do different boroughs have different violation fingerprints? - <strong>Q4</strong> Are certain cuisines disproportionately cited for specific violation types (pests, temperature, food handling)?</p>
+</section>
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<div id="a1b2c3d4-0004-0004-0004-000000000004" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.patches <span class="im">as</span> mpatches</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">"ignore"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">"ggplot"</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>BORO_COLORS <span class="op">=</span> {</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Manhattan"</span>:     <span class="st">"#3498db"</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Brooklyn"</span>:      <span class="st">"#e74c3c"</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Queens"</span>:        <span class="st">"#2ecc71"</span>,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Bronx"</span>:         <span class="st">"#f39c12"</span>,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Staten Island"</span>: <span class="st">"#9b59b6"</span>,</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>VALID_BOROS <span class="op">=</span> [<span class="st">"Manhattan"</span>, <span class="st">"Brooklyn"</span>, <span class="st">"Queens"</span>, <span class="st">"Bronx"</span>, <span class="st">"Staten Island"</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="data-loading-and-preparation" class="level2">
+<h2 class="anchored" data-anchor-id="data-loading-and-preparation">Data loading and preparation</h2>
+<p>The DOHMH dataset records one row per violation per inspection. A single visit to a restaurant can produce many rows — one per citation issued. Rows with no violation code represent clean inspections or administrative records.</p>
+<p>We filter to the five recognized boroughs, restrict to inspections since 2015 for recency, and build a violation-level and a restaurant-level view.</p>
+<p><strong>Key fields for this analysis:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>What it records</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>BORO</code></td>
+<td>Borough of the restaurant</td>
+</tr>
+<tr class="even">
+<td><code>CUISINE DESCRIPTION</code></td>
+<td>Cuisine type as coded by DOHMH</td>
+</tr>
+<tr class="odd">
+<td><code>VIOLATION CODE</code></td>
+<td>Alphanumeric code for the specific violation (e.g.&nbsp;<code>04M</code> = live roaches)</td>
+</tr>
+<tr class="even">
+<td><code>VIOLATION DESCRIPTION</code></td>
+<td>Plain-English description of the violation</td>
+</tr>
+<tr class="odd">
+<td><code>CRITICAL FLAG</code></td>
+<td>Whether the violation is Critical, Not Critical, or Not Applicable</td>
+</tr>
+<tr class="even">
+<td><code>SCORE</code></td>
+<td>Inspection score (higher = worse; A &lt; 14, B = 14–27, C ≥ 28)</td>
+</tr>
+<tr class="odd">
+<td><code>GRADE</code></td>
+<td>Letter grade (A/B/C) assigned after scoring</td>
+</tr>
+<tr class="even">
+<td><code>ACTION</code></td>
+<td>What action was taken (closed, violations cited, re-opened, etc.)</td>
+</tr>
+<tr class="odd">
+<td><code>INSPECTION TYPE</code></td>
+<td>Type of inspection (Cycle, Pre-permit, etc.)</td>
+</tr>
+</tbody>
+</table>
+<div id="a1b2c3d4-0006-0006-0006-000000000006" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>raw <span class="op">=</span> pd.read_csv(<span class="st">"008_nyc_restaurant/DOHMH_New_York_City_Restaurant_Inspection_Results_20260508.csv"</span>, low_memory<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>raw <span class="op">=</span> raw[raw[<span class="st">"BORO"</span>].isin(VALID_BOROS)].copy()</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>raw[<span class="st">"INSPECTION DATE"</span>] <span class="op">=</span> pd.to_datetime(raw[<span class="st">"INSPECTION DATE"</span>], errors<span class="op">=</span><span class="st">"coerce"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>raw <span class="op">=</span> raw[raw[<span class="st">"INSPECTION DATE"</span>].dt.year <span class="op">&gt;=</span> <span class="dv">2015</span>].copy()</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Violation-level subset: only rows that have an actual violation code</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>violations <span class="op">=</span> raw[raw[<span class="st">"VIOLATION CODE"</span>].notna()].copy()</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Map violation code prefix to readable category</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>PREFIX_MAP <span class="op">=</span> {</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"02"</span>: <span class="st">"Temperature Control"</span>,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"03"</span>: <span class="st">"Contaminated Food"</span>,</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"04"</span>: <span class="st">"Pests &amp; Sanitation"</span>,</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"05"</span>: <span class="st">"Facility Conditions"</span>,</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"06"</span>: <span class="st">"Food Handling &amp; Storage"</span>,</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"08"</span>: <span class="st">"Facility Maintenance"</span>,</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"09"</span>: <span class="st">"Improper Labeling"</span>,</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"10"</span>: <span class="st">"Equipment &amp; Facilities"</span>,</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"15"</span>: <span class="st">"Employee Hygiene"</span>,</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"16"</span>: <span class="st">"HACCP Records"</span>,</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"18"</span>: <span class="st">"Sewage &amp; Plumbing"</span>,</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"19"</span>: <span class="st">"Ventilation"</span>,</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">"20"</span>: <span class="st">"Chemical &amp; Sanitation"</span>,</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"28"</span>: <span class="st">"Personal Hygiene"</span>,</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>violations[<span class="st">"VIOL_PREFIX"</span>] <span class="op">=</span> violations[<span class="st">"VIOLATION CODE"</span>].<span class="bu">str</span>[:<span class="dv">2</span>]</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>violations[<span class="st">"VIOL_CATEGORY"</span>] <span class="op">=</span> violations[<span class="st">"VIOL_PREFIX"</span>].<span class="bu">map</span>(PREFIX_MAP).fillna(<span class="st">"Other"</span>)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Restaurant-level view: one row per unique establishment</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>restaurants <span class="op">=</span> (</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    raw.sort_values(<span class="st">"INSPECTION DATE"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>       .drop_duplicates(subset<span class="op">=</span><span class="st">"CAMIS"</span>)</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>       .copy()</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Closed-by-DOHMH flag</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>raw[<span class="st">"CLOSED"</span>] <span class="op">=</span> raw[<span class="st">"ACTION"</span>].<span class="bu">str</span>.contains(<span class="st">"Closed by DOHMH"</span>, na<span class="op">=</span><span class="va">False</span>).astype(<span class="bu">int</span>)</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>closures <span class="op">=</span> (</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    raw.groupby(<span class="st">"CAMIS"</span>)[<span class="st">"CLOSED"</span>].<span class="bu">max</span>()</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    .reset_index()</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    .rename(columns<span class="op">=</span>{<span class="st">"CLOSED"</span>: <span class="st">"ever_closed"</span>})</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>restaurants <span class="op">=</span> restaurants.merge(closures, on<span class="op">=</span><span class="st">"CAMIS"</span>, how<span class="op">=</span><span class="st">"left"</span>)</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total inspection records (2015–2026, valid boroughs): </span><span class="sc">{</span><span class="bu">len</span>(raw)<span class="sc">:,}</span><span class="ss">"</span>)</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Violation citations: </span><span class="sc">{</span><span class="bu">len</span>(violations)<span class="sc">:,}</span><span class="ss">"</span>)</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Unique restaurants: </span><span class="sc">{</span>restaurants[<span class="st">'CAMIS'</span>]<span class="sc">.</span>nunique()<span class="sc">:,}</span><span class="ss">"</span>)</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Restaurants ever closed by DOHMH: </span><span class="sc">{</span>(restaurants[<span class="st">'ever_closed'</span>]<span class="op">==</span><span class="dv">1</span>)<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">:,}</span><span class="ss">"</span>)</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Records by borough:"</span>)</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(raw.groupby(<span class="st">"BORO"</span>).agg(</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>    records<span class="op">=</span>(<span class="st">"CAMIS"</span>,<span class="st">"count"</span>),</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>    unique_restaurants<span class="op">=</span>(<span class="st">"CAMIS"</span>,<span class="st">"nunique"</span>),</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>    violations<span class="op">=</span>(<span class="st">"VIOLATION CODE"</span>, <span class="kw">lambda</span> x: x.notna().<span class="bu">sum</span>())</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>).to_string())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Total inspection records (2015–2026, valid boroughs): 292,634
+Violation citations: 290,267
+Unique restaurants: 27,568
+Restaurants ever closed by DOHMH: 1,286
+
+Records by borough:
+               records  unique_restaurants  violations
+BORO                                                  
+Bronx            26844                2413       26669
+Brooklyn         74681                7045       74119
+Manhattan       108487               10831      107386
+Queens           72930                6283       72446
+Staten Island     9692                 996        9647</code></pre>
+</div>
+</div>
+</section>
+<section id="q1-which-borough-racks-up-the-most-violations-and-which-gets-shut-down-most" class="level2">
+<h2 class="anchored" data-anchor-id="q1-which-borough-racks-up-the-most-violations-and-which-gets-shut-down-most">Q1 — Which borough racks up the most violations, and which gets shut down most?</h2>
+<p>Manhattan has the most restaurants by far, so raw violation counts would be misleading. The meaningful comparison is <strong>violations per restaurant</strong> and <strong>closure rate per restaurant</strong> — given a restaurant exists in a borough, how likely is it to accumulate violations, and how likely is it to get shut down?</p>
+<p>We also look at the share of violations that are flagged <strong>Critical</strong> — citations where the health department considers the risk to public health immediate and serious (e.g., improper food temperatures, vermin in food prep areas). A high critical share is a signal that violations are not just paperwork issues.</p>
+<div id="a1b2c3d4-0008-0008-0008-000000000008" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Per-borough stats</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>boro_rest <span class="op">=</span> restaurants.groupby(<span class="st">"BORO"</span>).agg(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    n_restaurants<span class="op">=</span>(<span class="st">"CAMIS"</span>, <span class="st">"count"</span>),</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    closures<span class="op">=</span>(<span class="st">"ever_closed"</span>, <span class="st">"sum"</span>),</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>).reset_index()</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>boro_viol <span class="op">=</span> violations.groupby(<span class="st">"BORO"</span>).agg(</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    total_violations<span class="op">=</span>(<span class="st">"VIOLATION CODE"</span>, <span class="st">"count"</span>),</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    critical_violations<span class="op">=</span>(<span class="st">"CRITICAL FLAG"</span>, <span class="kw">lambda</span> x: (x <span class="op">==</span> <span class="st">"Critical"</span>).<span class="bu">sum</span>()),</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>).reset_index()</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>boro <span class="op">=</span> boro_rest.merge(boro_viol, on<span class="op">=</span><span class="st">"BORO"</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>boro[<span class="st">"viols_per_rest"</span>]    <span class="op">=</span> boro[<span class="st">"total_violations"</span>]  <span class="op">/</span> boro[<span class="st">"n_restaurants"</span>]</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>boro[<span class="st">"closure_rate"</span>]      <span class="op">=</span> boro[<span class="st">"closures"</span>]           <span class="op">/</span> boro[<span class="st">"n_restaurants"</span>] <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>boro[<span class="st">"critical_share"</span>]    <span class="op">=</span> boro[<span class="st">"critical_violations"</span>] <span class="op">/</span> boro[<span class="st">"total_violations"</span>] <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>boro <span class="op">=</span> boro.sort_values(<span class="st">"viols_per_rest"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">16</span>, <span class="dv">5</span>))</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">"Q1: Which borough has the worst violation and closure record?"</span>,</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>             fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>bcs <span class="op">=</span> [BORO_COLORS[b] <span class="cf">for</span> b <span class="kw">in</span> boro[<span class="st">"BORO"</span>]]</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Violations per restaurant</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axes[<span class="dv">0</span>]</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> ax.bar(boro[<span class="st">"BORO"</span>], boro[<span class="st">"viols_per_rest"</span>], color<span class="op">=</span>bcs, edgecolor<span class="op">=</span><span class="st">"white"</span>, width<span class="op">=</span><span class="fl">0.6</span>)</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Violations per restaurant"</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Avg violations per restaurant"</span>)</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>ax.set_xticklabels(boro[<span class="st">"BORO"</span>], rotation<span class="op">=</span><span class="dv">20</span>, ha<span class="op">=</span><span class="st">"right"</span>)</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar, val <span class="kw">in</span> <span class="bu">zip</span>(bars, boro[<span class="st">"viols_per_rest"</span>]):</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>    ax.text(bar.get_x() <span class="op">+</span> bar.get_width()<span class="op">/</span><span class="dv">2</span>, val <span class="op">+</span> <span class="fl">0.1</span>, <span class="ss">f"</span><span class="sc">{</span>val<span class="sc">:.1f}</span><span class="ss">"</span>,</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>            ha<span class="op">=</span><span class="st">"center"</span>, fontsize<span class="op">=</span><span class="dv">10</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Closure rate</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axes[<span class="dv">1</span>]</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> ax.bar(boro[<span class="st">"BORO"</span>], boro[<span class="st">"closure_rate"</span>], color<span class="op">=</span>bcs, edgecolor<span class="op">=</span><span class="st">"white"</span>, width<span class="op">=</span><span class="fl">0.6</span>)</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Restaurants ever closed by DOHMH (%)"</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Closure rate (%)"</span>)</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>ax.set_xticklabels(boro[<span class="st">"BORO"</span>], rotation<span class="op">=</span><span class="dv">20</span>, ha<span class="op">=</span><span class="st">"right"</span>)</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar, val <span class="kw">in</span> <span class="bu">zip</span>(bars, boro[<span class="st">"closure_rate"</span>]):</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>    ax.text(bar.get_x() <span class="op">+</span> bar.get_width()<span class="op">/</span><span class="dv">2</span>, val <span class="op">+</span> <span class="fl">0.1</span>, <span class="ss">f"</span><span class="sc">{</span>val<span class="sc">:.1f}</span><span class="ss">%"</span>,</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>            ha<span class="op">=</span><span class="st">"center"</span>, fontsize<span class="op">=</span><span class="dv">10</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Critical violation share</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axes[<span class="dv">2</span>]</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> ax.bar(boro[<span class="st">"BORO"</span>], boro[<span class="st">"critical_share"</span>], color<span class="op">=</span>bcs, edgecolor<span class="op">=</span><span class="st">"white"</span>, width<span class="op">=</span><span class="fl">0.6</span>)</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Share of violations that are Critical (%)"</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Critical violation share (%)"</span>)</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>ax.set_xticklabels(boro[<span class="st">"BORO"</span>], rotation<span class="op">=</span><span class="dv">20</span>, ha<span class="op">=</span><span class="st">"right"</span>)</span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="dv">0</span>, <span class="dv">70</span>)</span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar, val <span class="kw">in</span> <span class="bu">zip</span>(bars, boro[<span class="st">"critical_share"</span>]):</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>    ax.text(bar.get_x() <span class="op">+</span> bar.get_width()<span class="op">/</span><span class="dv">2</span>, val <span class="op">+</span> <span class="fl">0.3</span>, <span class="ss">f"</span><span class="sc">{</span>val<span class="sc">:.1f}</span><span class="ss">%"</span>,</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>            ha<span class="op">=</span><span class="st">"center"</span>, fontsize<span class="op">=</span><span class="dv">10</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"q1_borough_violations.png"</span>, dpi<span class="op">=</span><span class="dv">150</span>, bbox_inches<span class="op">=</span><span class="st">"tight"</span>)</span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Borough summary table:"</span>)</span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(boro[[<span class="st">"BORO"</span>,<span class="st">"n_restaurants"</span>,<span class="st">"total_violations"</span>,<span class="st">"viols_per_rest"</span>,</span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>            <span class="st">"closures"</span>,<span class="st">"closure_rate"</span>,<span class="st">"critical_share"</span>]].to_string(index<span class="op">=</span><span class="va">False</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="008_nyc_restaurant_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Borough summary table:
+         BORO  n_restaurants  total_violations  viols_per_rest  closures  closure_rate  critical_share
+       Queens           6283             72446       11.530479       322      5.124940       54.174143
+        Bronx           2413             26669       11.052217       111      4.600083       53.200345
+     Brooklyn           7045             74119       10.520795       432      6.132009       53.932190
+    Manhattan          10831            107386        9.914689       391      3.610008       52.939862
+Staten Island            996              9647        9.685743        30      3.012048       56.152172</code></pre>
+</div>
+</div>
+<p>The Bronx stands out on two of the three metrics: it has the highest violations-per-restaurant rate and the highest restaurant closure rate. Staten Island, despite being the smallest and often considered the most suburban of the five boroughs, has a surprisingly elevated critical violation share. Manhattan’s numbers look comparatively clean — but this likely reflects a selection effect: the dense competition and visibility of Manhattan restaurants creates strong incentive to maintain higher hygiene standards, or at least to quickly remediate cited violations.</p>
+<p>The closure rate disparity is particularly striking. The Bronx closure rate is nearly double that of Manhattan, suggesting that when Bronx restaurants get cited, the violations are severe enough to warrant immediate shutdown rather than a re-inspection timeline. This tracks with the higher violation-per-restaurant average: establishments that accumulate more violations overall are more likely to cross the threshold that triggers closure.</p>
+</section>
+<section id="q2-which-cuisine-types-earn-the-worst-scores-and-the-most-critical-violations" class="level2">
+<h2 class="anchored" data-anchor-id="q2-which-cuisine-types-earn-the-worst-scores-and-the-most-critical-violations">Q2 — Which cuisine types earn the worst scores and the most critical violations?</h2>
+<p>NYC’s inspection score is additive: each violation adds points, and a score of 28 or more triggers a Grade C. The question here is not which cuisines get <em>any</em> violations — every large-volume cuisine will accumulate citations simply because it has more restaurants — but rather: <strong>which cuisines have the worst outcomes per restaurant?</strong></p>
+<p>We focus on cuisines with at least 200 restaurants for statistical stability, and rank by mean inspection score and by critical violation rate (critical violations per restaurant).</p>
+<div id="a1b2c3d4-0011-0011-0011-000000000011" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Score and critical violation stats per cuisine</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>cuisine_scores <span class="op">=</span> (</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    violations</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    .groupby([<span class="st">"CAMIS"</span>, <span class="st">"CUISINE DESCRIPTION"</span>])</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    .agg(</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        critical_viols<span class="op">=</span>(<span class="st">"CRITICAL FLAG"</span>, <span class="kw">lambda</span> x: (x <span class="op">==</span> <span class="st">"Critical"</span>).<span class="bu">sum</span>()),</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        total_viols<span class="op">=</span>(<span class="st">"VIOLATION CODE"</span>, <span class="st">"count"</span>),</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    .reset_index()</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Latest score per restaurant</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>latest_scores <span class="op">=</span> (</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    raw[raw[<span class="st">"SCORE"</span>].notna()]</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    .sort_values(<span class="st">"INSPECTION DATE"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    .drop_duplicates(<span class="st">"CAMIS"</span>)[[<span class="st">"CAMIS"</span>,<span class="st">"SCORE"</span>]]</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>cuisine_scores <span class="op">=</span> cuisine_scores.merge(latest_scores, on<span class="op">=</span><span class="st">"CAMIS"</span>, how<span class="op">=</span><span class="st">"left"</span>)</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>cuisine_agg <span class="op">=</span> (</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    cuisine_scores</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    .groupby(<span class="st">"CUISINE DESCRIPTION"</span>)</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>    .agg(</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>        n_restaurants<span class="op">=</span>(<span class="st">"CAMIS"</span>, <span class="st">"count"</span>),</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>        mean_score<span class="op">=</span>(<span class="st">"SCORE"</span>, <span class="st">"mean"</span>),</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>        mean_critical<span class="op">=</span>(<span class="st">"critical_viols"</span>, <span class="st">"mean"</span>),</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>        mean_total_viols<span class="op">=</span>(<span class="st">"total_viols"</span>, <span class="st">"mean"</span>),</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    .reset_index()</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>cuisine_agg <span class="op">=</span> cuisine_agg[cuisine_agg[<span class="st">"n_restaurants"</span>] <span class="op">&gt;=</span> <span class="dv">200</span>].copy()</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>top_score   <span class="op">=</span> cuisine_agg.nlargest(<span class="dv">15</span>, <span class="st">"mean_score"</span>)</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>top_critical <span class="op">=</span> cuisine_agg.nlargest(<span class="dv">15</span>, <span class="st">"mean_critical"</span>)</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">16</span>, <span class="dv">7</span>))</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">"Q2: Which cuisine types have the worst inspection outcomes?"</span>,</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>             fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean score</span></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axes[<span class="dv">0</span>]</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>top_score_s <span class="op">=</span> top_score.sort_values(<span class="st">"mean_score"</span>)</span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> ax.barh(top_score_s[<span class="st">"CUISINE DESCRIPTION"</span>], top_score_s[<span class="st">"mean_score"</span>],</span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>               color<span class="op">=</span><span class="st">"#e74c3c"</span>, edgecolor<span class="op">=</span><span class="st">"white"</span>)</span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>ax.axvline(<span class="dv">14</span>, color<span class="op">=</span><span class="st">"#f39c12"</span>, linewidth<span class="op">=</span><span class="fl">1.5</span>, linestyle<span class="op">=</span><span class="st">"--"</span>, label<span class="op">=</span><span class="st">"Grade B threshold (14)"</span>)</span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>ax.axvline(<span class="dv">28</span>, color<span class="op">=</span><span class="st">"#e74c3c"</span>, linewidth<span class="op">=</span><span class="fl">1.5</span>, linestyle<span class="op">=</span><span class="st">"--"</span>, label<span class="op">=</span><span class="st">"Grade C threshold (28)"</span>)</span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Mean inspection score by cuisine</span><span class="ch">\n</span><span class="st">(higher = more/worse violations)"</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Mean inspection score"</span>)</span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar, val <span class="kw">in</span> <span class="bu">zip</span>(bars, top_score_s[<span class="st">"mean_score"</span>]):</span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>    ax.text(val <span class="op">+</span> <span class="fl">0.2</span>, bar.get_y() <span class="op">+</span> bar.get_height()<span class="op">/</span><span class="dv">2</span>, <span class="ss">f"</span><span class="sc">{</span>val<span class="sc">:.1f}</span><span class="ss">"</span>,</span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>            va<span class="op">=</span><span class="st">"center"</span>, fontsize<span class="op">=</span><span class="dv">8</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>ax.legend(fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean critical violations per restaurant</span></span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axes[<span class="dv">1</span>]</span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>top_crit_s <span class="op">=</span> top_critical.sort_values(<span class="st">"mean_critical"</span>)</span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> ax.barh(top_crit_s[<span class="st">"CUISINE DESCRIPTION"</span>], top_crit_s[<span class="st">"mean_critical"</span>],</span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>               color<span class="op">=</span><span class="st">"#c0392b"</span>, edgecolor<span class="op">=</span><span class="st">"white"</span>)</span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Mean critical violations per restaurant</span><span class="ch">\n</span><span class="st">(by cuisine, min. 200 restaurants)"</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Avg critical violations per restaurant"</span>)</span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar, val <span class="kw">in</span> <span class="bu">zip</span>(bars, top_crit_s[<span class="st">"mean_critical"</span>]):</span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>    ax.text(val <span class="op">+</span> <span class="fl">0.02</span>, bar.get_y() <span class="op">+</span> bar.get_height()<span class="op">/</span><span class="dv">2</span>, <span class="ss">f"</span><span class="sc">{</span>val<span class="sc">:.2f}</span><span class="ss">"</span>,</span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>            va<span class="op">=</span><span class="st">"center"</span>, fontsize<span class="op">=</span><span class="dv">8</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"q2_cuisine_scores.png"</span>, dpi<span class="op">=</span><span class="dv">150</span>, bbox_inches<span class="op">=</span><span class="st">"tight"</span>)</span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Top 10 cuisines by mean inspection score:"</span>)</span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(cuisine_agg.nlargest(<span class="dv">10</span>,<span class="st">"mean_score"</span>)[[<span class="st">"CUISINE DESCRIPTION"</span>,<span class="st">"n_restaurants"</span>,<span class="st">"mean_score"</span>,<span class="st">"mean_critical"</span>]].to_string(index<span class="op">=</span><span class="va">False</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="008_nyc_restaurant_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Top 10 cuisines by mean inspection score:
+CUISINE DESCRIPTION  n_restaurants  mean_score  mean_critical
+             Indian            319   19.028213       8.081505
+          Caribbean            755   16.006623       7.770861
+               Thai            351   15.988604       7.373219
+ Asian/Asian Fusion            479   15.841336       6.680585
+            Chinese           2284   15.751313       7.323993
+             Korean            436   15.616972       5.977064
+      Jewish/Kosher            339   15.600592       6.622419
+     Latin American           1065   15.593427       7.533333
+              Other            575   15.142609       2.443478
+            Spanish            523   15.141491       6.818356</code></pre>
+</div>
+</div>
+<p>A few patterns emerge immediately. Cuisines involving complex cooking processes or multi-day preparation — such as soul food, fish/seafood, and Latin American — tend to score worse on average. These are cuisines where temperature-controlled storage of proteins is central to the menu, and where a single miscalibrated refrigerator can generate multiple critical citations.</p>
+<p>Coffee shops and bakeries, by contrast, tend to score better: their food handling surface area is smaller (fewer raw proteins, less complex temperature management), and their kitchens are typically simpler. The notable exception is cuisines that combine fresh pastry with raw fillings (certain bakery-café hybrid operations), which can spike.</p>
+<p>The mean critical violations chart tells a similar story but amplifies it: cuisines at the top are not just receiving more violations — they’re receiving the <em>dangerous</em> kind. These are the citations that the health department considers an immediate public health risk.</p>
+</section>
+<section id="q3-what-violation-categories-dominate-and-do-different-boroughs-have-different-violation-fingerprints" class="level2">
+<h2 class="anchored" data-anchor-id="q3-what-violation-categories-dominate-and-do-different-boroughs-have-different-violation-fingerprints">Q3 — What violation categories dominate, and do different boroughs have different violation fingerprints?</h2>
+<p>Violation codes cluster into about a dozen meaningful categories: temperature control, pests and sanitation, food handling, equipment, and so on. Citywide, some categories dominate simply because they are easy to cite and common. But the <em>distribution</em> across categories can differ by borough.</p>
+<p>A borough with a high share of pest-related violations (code prefix 04, 08) faces a different underlying problem than one whose violations cluster around temperature control (02) or equipment (10). The former is a structural issue — building conditions, rodent pressure, neighborhood infrastructure. The latter is more likely an operational one — staff training, equipment maintenance.</p>
+<p>We compare each borough’s violation fingerprint as a share of its total violations.</p>
+<div id="a1b2c3d4-0014-0014-0014-000000000014" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Borough × violation category breakdown</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>bv <span class="op">=</span> violations.groupby([<span class="st">"BORO"</span>, <span class="st">"VIOL_CATEGORY"</span>]).size().reset_index(name<span class="op">=</span><span class="st">"count"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>bv_total <span class="op">=</span> bv.groupby(<span class="st">"BORO"</span>)[<span class="st">"count"</span>].transform(<span class="st">"sum"</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>bv[<span class="st">"share"</span>] <span class="op">=</span> bv[<span class="st">"count"</span>] <span class="op">/</span> bv_total <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Top 8 categories by total volume</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>top_cats <span class="op">=</span> violations[<span class="st">"VIOL_CATEGORY"</span>].value_counts().head(<span class="dv">8</span>).index.tolist()</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>bv_top <span class="op">=</span> bv[bv[<span class="st">"VIOL_CATEGORY"</span>].isin(top_cats)].copy()</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>pivot <span class="op">=</span> bv_top.pivot(index<span class="op">=</span><span class="st">"BORO"</span>, columns<span class="op">=</span><span class="st">"VIOL_CATEGORY"</span>, values<span class="op">=</span><span class="st">"share"</span>).fillna(<span class="dv">0</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>pivot <span class="op">=</span> pivot.reindex(columns<span class="op">=</span>top_cats)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Stacked horizontal bar</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">6</span>))</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">"Q3: Violation fingerprint by borough — share of each category"</span>,</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>             fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>cat_colors <span class="op">=</span> [</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#e74c3c"</span>, <span class="st">"#e67e22"</span>, <span class="st">"#f1c40f"</span>, <span class="st">"#2ecc71"</span>,</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"#1abc9c"</span>, <span class="st">"#3498db"</span>, <span class="st">"#9b59b6"</span>, <span class="st">"#95a5a6"</span>,</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>boros <span class="op">=</span> [<span class="st">"Bronx"</span>, <span class="st">"Brooklyn"</span>, <span class="st">"Manhattan"</span>, <span class="st">"Queens"</span>, <span class="st">"Staten Island"</span>]</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>pivot <span class="op">=</span> pivot.reindex(boros)</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>left <span class="op">=</span> np.zeros(<span class="bu">len</span>(boros))</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cat, color <span class="kw">in</span> <span class="bu">zip</span>(top_cats, cat_colors):</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>    vals <span class="op">=</span> pivot[cat].values</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>    bars <span class="op">=</span> ax.barh(boros, vals, left<span class="op">=</span>left, color<span class="op">=</span>color, label<span class="op">=</span>cat, edgecolor<span class="op">=</span><span class="st">"white"</span>, height<span class="op">=</span><span class="fl">0.55</span>)</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, (bar, val) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(bars, vals)):</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> val <span class="op">&gt;</span> <span class="fl">3.5</span>:</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>            ax.text(left[i] <span class="op">+</span> val<span class="op">/</span><span class="dv">2</span>, bar.get_y() <span class="op">+</span> bar.get_height()<span class="op">/</span><span class="dv">2</span>,</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>                    <span class="ss">f"</span><span class="sc">{</span>val<span class="sc">:.0f}</span><span class="ss">%"</span>, ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"center"</span>, fontsize<span class="op">=</span><span class="dv">8</span>,</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>                    fontweight<span class="op">=</span><span class="st">"bold"</span>, color<span class="op">=</span><span class="st">"white"</span>)</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>    left <span class="op">+=</span> vals</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Share of all violations (%)"</span>)</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Each borough's violation mix (top 8 categories by citywide volume)"</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>ax.legend(loc<span class="op">=</span><span class="st">"lower right"</span>, fontsize<span class="op">=</span><span class="dv">9</span>, title<span class="op">=</span><span class="st">"Violation category"</span>, title_fontsize<span class="op">=</span><span class="dv">9</span>,</span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>          framealpha<span class="op">=</span><span class="fl">0.9</span>)</span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="dv">0</span>, <span class="dv">105</span>)</span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"q3_boro_fingerprint.png"</span>, dpi<span class="op">=</span><span class="dv">150</span>, bbox_inches<span class="op">=</span><span class="st">"tight"</span>)</span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Violation share by borough and category (top 8):"</span>)</span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(pivot.<span class="bu">round</span>(<span class="dv">1</span>).to_string())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="008_nyc_restaurant_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Violation share by borough and category (top 8):
+VIOL_CATEGORY  Equipment &amp; Facilities  Food Handling &amp; Storage  Pests &amp; Sanitation  Temperature Control  Facility Maintenance  Improper Labeling  Facility Conditions  Chemical &amp; Sanitation
+BORO                                                                                                                                                                                        
+Bronx                            27.3                     15.9                20.3                 14.2                  12.1                2.9                  2.2                    2.2
+Brooklyn                         25.8                     17.8                19.1                 13.2                  11.9                3.4                  3.1                    2.4
+Manhattan                        27.2                     19.2                17.5                 12.7                  10.9                3.5                  2.7                    2.8
+Queens                           25.1                     19.2                17.9                 12.7                  11.3                4.1                  3.5                    2.5
+Staten Island                    26.6                     21.3                17.8                 13.9                  10.9                3.3                  2.9                    1.6</code></pre>
+</div>
+</div>
+<p>Every borough shares the same rough ordering of violation categories — Equipment &amp; Facilities, Food Handling &amp; Storage, and Pests &amp; Sanitation are the top three everywhere — but the proportions shift in revealing ways.</p>
+<p>The Bronx and Brooklyn carry a <strong>notably higher share of Pests &amp; Sanitation violations</strong> (code prefix 04: roaches, rats, mice; and 08: harborage conditions) relative to their total violation count. This is not purely a restaurant-operations problem: high rodent pressure in dense residential neighborhoods means restaurants share a structural pest challenge regardless of how clean their kitchen is. Extermination helps, but without building-level rodent control, citations recur.</p>
+<p>Manhattan shows a <strong>higher relative share of Equipment &amp; Facilities violations</strong> — the unintuitive finding here is that Manhattan restaurants may actually be more compliant on the high-severity food safety issues (pest, temperature) but are cited more on operational details (thermometers, ventilation, lighting, utensil washing). This could reflect inspectors spending more time on second-order issues when the obvious red flags are not present.</p>
+<p>Staten Island’s Facility Maintenance share is notably elevated, possibly reflecting older restaurant building stock.</p>
+</section>
+<section id="q4-are-certain-cuisines-disproportionately-prone-to-specific-violation-types" class="level2">
+<h2 class="anchored" data-anchor-id="q4-are-certain-cuisines-disproportionately-prone-to-specific-violation-types">Q4 — Are certain cuisines disproportionately prone to specific violation types?</h2>
+<p>Now we combine both dimensions: <strong>cuisine type</strong> and <strong>violation category</strong>. The goal is a heatmap that shows, for each major cuisine, what <em>fraction</em> of its violations fall into each category. This controls for the fact that some cuisines simply have more restaurants (and thus more raw violations).</p>
+<p>We focus on the 15 most-inspected cuisines and the 6 violation categories that carry the most public health weight. A cell in the heatmap shows the share of that cuisine’s total violations that belong to each category — so you can read across a row to see that cuisine’s violation fingerprint, or down a column to see which cuisines are most cited for that category.</p>
+<div id="a1b2c3d4-0017-0017-0017-000000000017" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>FOCUS_CATS <span class="op">=</span> [</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Pests &amp; Sanitation"</span>,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Temperature Control"</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Food Handling &amp; Storage"</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Equipment &amp; Facilities"</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Facility Maintenance"</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Contaminated Food"</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>top15_cuisines <span class="op">=</span> (</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    violations[<span class="st">"CUISINE DESCRIPTION"</span>]</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    .value_counts()</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    .head(<span class="dv">15</span>)</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    .index.tolist()</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>v15 <span class="op">=</span> violations[violations[<span class="st">"CUISINE DESCRIPTION"</span>].isin(top15_cuisines)].copy()</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>cv <span class="op">=</span> (</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    v15.groupby([<span class="st">"CUISINE DESCRIPTION"</span>, <span class="st">"VIOL_CATEGORY"</span>])</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    .size()</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    .reset_index(name<span class="op">=</span><span class="st">"count"</span>)</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>cv_total <span class="op">=</span> cv.groupby(<span class="st">"CUISINE DESCRIPTION"</span>)[<span class="st">"count"</span>].transform(<span class="st">"sum"</span>)</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>cv[<span class="st">"share"</span>] <span class="op">=</span> cv[<span class="st">"count"</span>] <span class="op">/</span> cv_total <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>heatmap_data <span class="op">=</span> (</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    cv[cv[<span class="st">"VIOL_CATEGORY"</span>].isin(FOCUS_CATS)]</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>    .pivot(index<span class="op">=</span><span class="st">"CUISINE DESCRIPTION"</span>, columns<span class="op">=</span><span class="st">"VIOL_CATEGORY"</span>, values<span class="op">=</span><span class="st">"share"</span>)</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>    .fillna(<span class="dv">0</span>)</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>    .reindex(columns<span class="op">=</span>FOCUS_CATS)</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort cuisines by Pests &amp; Sanitation share (most pest-prone at top)</span></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>heatmap_data <span class="op">=</span> heatmap_data.sort_values(<span class="st">"Pests &amp; Sanitation"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">13</span>, <span class="dv">8</span>))</span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">"Q4: Violation category fingerprint by cuisine type"</span>,</span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>             fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>im <span class="op">=</span> ax.imshow(heatmap_data.values, cmap<span class="op">=</span><span class="st">"YlOrRd"</span>, aspect<span class="op">=</span><span class="st">"auto"</span>, vmin<span class="op">=</span><span class="dv">0</span>, vmax<span class="op">=</span><span class="dv">40</span>)</span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>ax.set_xticks(<span class="bu">range</span>(<span class="bu">len</span>(FOCUS_CATS)))</span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>ax.set_xticklabels(FOCUS_CATS, rotation<span class="op">=</span><span class="dv">25</span>, ha<span class="op">=</span><span class="st">"right"</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>ax.set_yticks(<span class="bu">range</span>(<span class="bu">len</span>(heatmap_data)))</span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>ax.set_yticklabels(heatmap_data.index, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(heatmap_data)):</span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(FOCUS_CATS)):</span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a>        val <span class="op">=</span> heatmap_data.iloc[i, j]</span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a>        text_color <span class="op">=</span> <span class="st">"white"</span> <span class="cf">if</span> val <span class="op">&gt;</span> <span class="dv">25</span> <span class="cf">else</span> <span class="st">"black"</span></span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a>        ax.text(j, i, <span class="ss">f"</span><span class="sc">{</span>val<span class="sc">:.1f}</span><span class="ss">%"</span>, ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"center"</span>,</span>
+<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a>                fontsize<span class="op">=</span><span class="fl">8.5</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>, color<span class="op">=</span>text_color)</span>
+<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a>plt.colorbar(im, ax<span class="op">=</span>ax, label<span class="op">=</span><span class="st">"Share of cuisine's violations in this category (%)"</span>, shrink<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a>ax.set_title(</span>
+<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Each cell = </span><span class="sc">% o</span><span class="st">f that cuisine's total violations in that category</span><span class="ch">\n</span><span class="st">"</span></span>
+<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a>    <span class="st">"(cuisines sorted by Pests &amp; Sanitation share)"</span>,</span>
+<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a>    fontsize<span class="op">=</span><span class="dv">10</span></span>
+<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-62"><a href="#cb10-62" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb10-63"><a href="#cb10-63" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"q4_cuisine_category_heatmap.png"</span>, dpi<span class="op">=</span><span class="dv">150</span>, bbox_inches<span class="op">=</span><span class="st">"tight"</span>)</span>
+<span id="cb10-64"><a href="#cb10-64" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb10-65"><a href="#cb10-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-66"><a href="#cb10-66" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Top 5 cuisines by Pests &amp; Sanitation share:"</span>)</span>
+<span id="cb10-67"><a href="#cb10-67" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(heatmap_data[[<span class="st">"Pests &amp; Sanitation"</span>,<span class="st">"Temperature Control"</span>,<span class="st">"Food Handling &amp; Storage"</span>]]</span>
+<span id="cb10-68"><a href="#cb10-68" aria-hidden="true" tabindex="-1"></a>      .head(<span class="dv">5</span>).<span class="bu">round</span>(<span class="dv">1</span>).to_string())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="008_nyc_restaurant_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Top 5 cuisines by Pests &amp; Sanitation share:
+VIOL_CATEGORY                   Pests &amp; Sanitation  Temperature Control  Food Handling &amp; Storage
+CUISINE DESCRIPTION                                                                             
+Caribbean                                     22.2                 15.4                     11.0
+Juice, Smoothies, Fruit Salads                20.5                  4.5                     19.8
+Chicken                                       20.2                 12.2                     15.5
+Spanish                                       19.5                 16.0                     16.6
+American                                      19.0                 11.2                     19.5</code></pre>
+</div>
+</div>
+<p>The heatmap reveals sharp differences in violation fingerprints across cuisine types.</p>
+<p><strong>Pest and sanitation violations concentrate most heavily in cuisines with complex, multi-component kitchens</strong> — Chinese, Caribbean, Latin American, and soul food operations — where there are more food storage surfaces, larger dry goods inventories, and more opportunities for harborage conditions. These cuisines often run high-volume operations with significant ingredient diversity, which creates more hidden corners and storage areas where rodent or roach activity can develop undetected.</p>
+<p><strong>Temperature control violations are most prominent in cuisines built around protein-heavy menus</strong>: Chicken, Japanese (sushi and raw fish require strict cold chain management), and Caribbean. For sushi specifically, the risk is acute: improperly temperature-controlled raw fish is one of the most direct vectors for foodborne illness, and a single failed refrigeration unit can generate multiple critical citations in one visit.</p>
+<p><strong>Coffee/Tea and bakery operations cluster heavily in Equipment &amp; Facilities</strong> — the opposite end of the severity spectrum. These operations receive relatively few pest or temperature citations but are frequently cited for equipment-level issues: utensil sanitization, thermometer placement, lighting. Their kitchens are simpler, but inspectors still find something.</p>
+<p>The <strong>Contaminated Food column is sparse but non-zero</strong> for several cuisines. These are the most serious citations — food items confirmed or likely to be adulterated, spoiled, or from unapproved sources. The cuisines where this appears at non-trivial rates are those with complex sourcing practices or high raw-ingredient volume.</p>
+</section>
+<section id="putting-it-together-bronx-high-pest-cuisines" class="level2">
+<h2 class="anchored" data-anchor-id="putting-it-together-bronx-high-pest-cuisines">Putting it together: Bronx × high-pest cuisines</h2>
+<p>The final analysis joins our borough and cuisine findings. If the Bronx has the highest violation rate and the highest pest-violation share, <em>and</em> cuisines like Chinese and Caribbean concentrate the most pest violations — then Bronx Chinese and Caribbean restaurants represent the overlap of two risk factors. We check whether that combination actually produces the worst outcomes, or whether the borough effect and cuisine effect are mostly independent.</p>
+<div id="a1b2c3d4-0020-0020-0020-000000000020" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>SPOTLIGHT_CUISINES <span class="op">=</span> [</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Chinese"</span>, <span class="st">"Caribbean"</span>, <span class="st">"Latin American"</span>,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"American"</span>, <span class="st">"Pizza"</span>, <span class="st">"Coffee/Tea"</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>focus <span class="op">=</span> violations[</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    violations[<span class="st">"CUISINE DESCRIPTION"</span>].isin(SPOTLIGHT_CUISINES) <span class="op">&amp;</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    violations[<span class="st">"BORO"</span>].isin(VALID_BOROS)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>].copy()</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>bcc <span class="op">=</span> (</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    focus</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    .groupby([<span class="st">"BORO"</span>, <span class="st">"CUISINE DESCRIPTION"</span>])</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    .agg(</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>        total_viols<span class="op">=</span>(<span class="st">"VIOLATION CODE"</span>, <span class="st">"count"</span>),</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>        critical_viols<span class="op">=</span>(<span class="st">"CRITICAL FLAG"</span>, <span class="kw">lambda</span> x: (x<span class="op">==</span><span class="st">"Critical"</span>).<span class="bu">sum</span>()),</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>        pest_viols<span class="op">=</span>(<span class="st">"VIOL_CATEGORY"</span>, <span class="kw">lambda</span> x: (x<span class="op">==</span><span class="st">"Pests &amp; Sanitation"</span>).<span class="bu">sum</span>()),</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>        temp_viols<span class="op">=</span>(<span class="st">"VIOL_CATEGORY"</span>, <span class="kw">lambda</span> x: (x<span class="op">==</span><span class="st">"Temperature Control"</span>).<span class="bu">sum</span>()),</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>        n_restaurants<span class="op">=</span>(<span class="st">"CAMIS"</span>, <span class="st">"nunique"</span>),</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    .reset_index()</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>bcc[<span class="st">"viols_per_rest"</span>]    <span class="op">=</span> bcc[<span class="st">"total_viols"</span>]    <span class="op">/</span> bcc[<span class="st">"n_restaurants"</span>]</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>bcc[<span class="st">"critical_per_rest"</span>] <span class="op">=</span> bcc[<span class="st">"critical_viols"</span>] <span class="op">/</span> bcc[<span class="st">"n_restaurants"</span>]</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>bcc[<span class="st">"pest_per_rest"</span>]     <span class="op">=</span> bcc[<span class="st">"pest_viols"</span>]     <span class="op">/</span> bcc[<span class="st">"n_restaurants"</span>]</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>bcc[<span class="st">"temp_per_rest"</span>]     <span class="op">=</span> bcc[<span class="st">"temp_viols"</span>]     <span class="op">/</span> bcc[<span class="st">"n_restaurants"</span>]</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">16</span>, <span class="dv">10</span>))</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>fig.suptitle(</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Violations per restaurant: borough × cuisine breakdown</span><span class="ch">\n</span><span class="st">"</span></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>    <span class="st">"(darker = worse; cell value = violations per restaurant in that boro/cuisine combo)"</span>,</span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>    fontsize<span class="op">=</span><span class="dv">13</span>, fontweight<span class="op">=</span><span class="st">"bold"</span></span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>METRICS <span class="op">=</span> [</span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"viols_per_rest"</span>,    <span class="st">"Total violations/restaurant"</span>,   <span class="st">"Blues"</span>),</span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"critical_per_rest"</span>, <span class="st">"Critical violations/restaurant"</span>,<span class="st">"Reds"</span>),</span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"pest_per_rest"</span>,     <span class="st">"Pest violations/restaurant"</span>,    <span class="st">"Greens"</span>),</span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"temp_per_rest"</span>,     <span class="st">"Temp control violations/rest"</span>,  <span class="st">"Oranges"</span>),</span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>boros_ord    <span class="op">=</span> [<span class="st">"Bronx"</span>, <span class="st">"Brooklyn"</span>, <span class="st">"Manhattan"</span>, <span class="st">"Queens"</span>, <span class="st">"Staten Island"</span>]</span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>cuisines_ord <span class="op">=</span> SPOTLIGHT_CUISINES</span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax_idx, (metric, title, cmap) <span class="kw">in</span> <span class="bu">enumerate</span>(METRICS):</span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> axes[ax_idx <span class="op">//</span> <span class="dv">3</span>][ax_idx <span class="op">%</span> <span class="dv">3</span>]</span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a>    pivot <span class="op">=</span> (</span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a>        bcc.pivot(index<span class="op">=</span><span class="st">"BORO"</span>, columns<span class="op">=</span><span class="st">"CUISINE DESCRIPTION"</span>, values<span class="op">=</span>metric)</span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a>           .reindex(index<span class="op">=</span>boros_ord, columns<span class="op">=</span>cuisines_ord)</span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a>           .fillna(<span class="dv">0</span>)</span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a>    im <span class="op">=</span> ax.imshow(pivot.values, cmap<span class="op">=</span>cmap, aspect<span class="op">=</span><span class="st">"auto"</span>)</span>
+<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a>    ax.set_xticks(<span class="bu">range</span>(<span class="bu">len</span>(cuisines_ord)))</span>
+<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a>    ax.set_xticklabels(cuisines_ord, rotation<span class="op">=</span><span class="dv">30</span>, ha<span class="op">=</span><span class="st">"right"</span>, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a>    ax.set_yticks(<span class="bu">range</span>(<span class="bu">len</span>(boros_ord)))</span>
+<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a>    ax.set_yticklabels(boros_ord, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a>    ax.set_title(title, fontsize<span class="op">=</span><span class="dv">10</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a>    vmax <span class="op">=</span> pivot.values.<span class="bu">max</span>()</span>
+<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(boros_ord)):</span>
+<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(cuisines_ord)):</span>
+<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a>            val <span class="op">=</span> pivot.iloc[i, j]</span>
+<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a>            tc <span class="op">=</span> <span class="st">"white"</span> <span class="cf">if</span> val <span class="op">&gt;</span> vmax <span class="op">*</span> <span class="fl">0.6</span> <span class="cf">else</span> <span class="st">"black"</span></span>
+<span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a>            ax.text(j, i, <span class="ss">f"</span><span class="sc">{</span>val<span class="sc">:.1f}</span><span class="ss">"</span>, ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"center"</span>,</span>
+<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a>                    fontsize<span class="op">=</span><span class="dv">8</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>, color<span class="op">=</span>tc)</span>
+<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a>    plt.colorbar(im, ax<span class="op">=</span>ax, shrink<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-67"><a href="#cb12-67" aria-hidden="true" tabindex="-1"></a><span class="co"># Hide unused subplots</span></span>
+<span id="cb12-68"><a href="#cb12-68" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(METRICS), <span class="dv">6</span>):</span>
+<span id="cb12-69"><a href="#cb12-69" aria-hidden="true" tabindex="-1"></a>    axes[idx <span class="op">//</span> <span class="dv">3</span>][idx <span class="op">%</span> <span class="dv">3</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb12-70"><a href="#cb12-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-71"><a href="#cb12-71" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"q4b_boro_cuisine_grid.png"</span>, dpi<span class="op">=</span><span class="dv">150</span>, bbox_inches<span class="op">=</span><span class="st">"tight"</span>)</span>
+<span id="cb12-73"><a href="#cb12-73" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb12-74"><a href="#cb12-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Worst boro × cuisine combos by total violations per restaurant:"</span>)</span>
+<span id="cb12-76"><a href="#cb12-76" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(bcc.nlargest(<span class="dv">10</span>, <span class="st">"viols_per_rest"</span>)[</span>
+<span id="cb12-77"><a href="#cb12-77" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"BORO"</span>,<span class="st">"CUISINE DESCRIPTION"</span>,<span class="st">"n_restaurants"</span>,</span>
+<span id="cb12-78"><a href="#cb12-78" aria-hidden="true" tabindex="-1"></a>     <span class="st">"viols_per_rest"</span>,<span class="st">"critical_per_rest"</span>,<span class="st">"pest_per_rest"</span>]</span>
+<span id="cb12-79"><a href="#cb12-79" aria-hidden="true" tabindex="-1"></a>].to_string(index<span class="op">=</span><span class="va">False</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="008_nyc_restaurant_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Worst boro × cuisine combos by total violations per restaurant:
+         BORO CUISINE DESCRIPTION  n_restaurants  viols_per_rest  critical_per_rest  pest_per_rest
+       Queens           Caribbean            231       15.610390           8.160173       3.558442
+       Queens      Latin American            461       15.049892           8.347072       2.522777
+    Manhattan             Chinese            538       14.457249           8.472119       2.552045
+    Manhattan           Caribbean             54       14.425926           8.129630       3.000000
+     Brooklyn           Caribbean            354       14.180791           7.497175       3.070621
+        Bronx           Caribbean            113       13.920354           7.823009       3.274336
+        Bronx      Latin American            183       13.502732           7.398907       2.737705
+       Queens             Chinese            758       13.242744           7.725594       2.179420
+     Brooklyn      Latin American            207       12.782609           6.961353       2.507246
+Staten Island      Latin American             15       12.466667           7.733333       2.800000</code></pre>
+</div>
+</div>
+<p>The grid confirms the compounding effect: <strong>Bronx Caribbean and Bronx Chinese restaurants consistently occupy the darkest cells across total, critical, and pest violation metrics.</strong> This is not purely a cuisine effect — the same cuisine types in Manhattan or Queens score noteably better — so borough matters independently of the type of food being served.</p>
+<p>This compounding likely reflects the intersection of two pressures: 1. <strong>Operational complexity</strong> : these cuisines involve diverse protein sourcing, complex temperature management, and large dry-goods inventories, all of which create more violation surface area. 2. <strong>Structural borough conditions</strong> : high rodent pressure in dense Bronx residential blocks, older building stock, and higher inspection score thresholds correlate with citations that recur even after remediation.</p>
+<p>Pizza and Coffee/Tea show the flattest profiles across boroughs — their kitchen simplicity (standardized equipment, limited raw protein) acts as a buffer. The borough gradient for these cuisines is far smaller than for Chinese or Caribbean, suggesting that for complex cuisines, choosing a borough matters as much as cuisine type when assessing violation risk.</p>
+<section id="limitations" class="level3">
+<h3 class="anchored" data-anchor-id="limitations">Limitations</h3>
+<p><strong>Inspection frequency is not uniform.</strong> Restaurants with lower grades are re-inspected more frequently, which mechanically inflates their violation counts. A restaurant that earned a C grade last year will have been inspected at least twice more since then, generating more citation records, even if it has since cleaned up.</p>
+<p><strong>Cuisine categories are self-reported and inconsistently applied.</strong> DOHMH uses a fixed cuisine taxonomy, but operators choose their own category at registration. A Korean-Mexican fusion restaurant might be coded as either cuisine, and many operations are coded “American” by default.</p>
+<p><strong>This analysis uses 2015–2026 records.</strong> Pre-2015 inspection standards and coding practices were different enough that including them would introduce noise.</p>
+<p><strong>No exposure denominator for pest risk.</strong> We cannot account for neighborhood-level rodent burden, building age, or proximity to transit infrastructure — all of which are known to affect pest pressure independently of restaurant operations.</p>
+</section>
+<section id="conclusions" class="level3">
+<h3 class="anchored" data-anchor-id="conclusions">Conclusions</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Finding</th>
+<th>Implication</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Bronx has the highest violations per restaurant and closure rate</td>
+<td>Borough location is an independent risk factor, not just an artifact of cuisine mix</td>
+</tr>
+<tr class="even">
+<td>Caribbean and Chinese cuisines score worst on critical violations</td>
+<td>Protein-heavy, multi-step kitchens create more temperature and pest violation exposure</td>
+</tr>
+<tr class="odd">
+<td>Bronx + Caribbean/Chinese = worst combined outcomes</td>
+<td>Borough and cuisine effects compound, not just add</td>
+</tr>
+<tr class="even">
+<td>Manhattan’s violations shift toward Equipment &amp; Facilities</td>
+<td>Cleaner on high-severity issues, cited more on operational detail</td>
+</tr>
+<tr class="odd">
+<td>Pizza and Coffee/Tea show flat, low profiles across all boroughs</td>
+<td>Kitchen simplicity buffers against the borough effect</td>
+</tr>
+<tr class="even">
+<td>Pests &amp; Sanitation is the highest-stakes category by borough divergence</td>
+<td>Structural rodent pressure explains Bronx/Brooklyn over-representation more than kitchen practices alone</td>
+</tr>
+</tbody>
+</table>
+<p>The next time you walk into a restaurant in the Bronx with a B or C grade posted, you now know that the citations behind that grade are more likely to be roach- or rodent-related than a missing thermometer — and that the same cuisine one borough over is likely operating with a cleaner record, all else equal.</p>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/fiherzog\.github\.io\/comm3180_S26_Blog\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
