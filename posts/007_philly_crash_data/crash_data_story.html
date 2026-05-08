@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Fiona Herzog">
+<meta name="dcterms.date" content="2026-03-23">
+<meta name="description" content="What does crash data tell us about when and where to cross the street?">
+
+<title>What to look out for when jay-walking in Philadelphia – Fiona Herzog’s Data Findings</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-5a335638c95573c74d3de04ac0781048.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Fiona Herzog’s Data Findings</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/fiherzog/comm3180_S26_Blog"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">What to look out for when jay-walking in Philadelphia</h1>
+                  <div>
+        <div class="description">
+          What does crash data tell us about when and where to cross the street?
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">visualization</div>
+                <div class="quarto-category">data stories</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Fiona Herzog </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">March 23, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="what-to-look-out-for-when-trying-to-jay-walk-in-philadelphia" class="level1">
+<h1>What to look out for when trying to jay-walk in Philadelphia</h1>
+<section id="what-does-crash-data-tell-us-about-when-and-where-to-cross-the-street" class="level2">
+<h2 class="anchored" data-anchor-id="what-does-crash-data-tell-us-about-when-and-where-to-cross-the-street">What does crash data tell us about when and where to cross the street?</h2>
+<p><strong>Author:</strong> Fiona Herzog<br>
+- <code>collision_crash_2020_2024.csv</code> — PennDOT crash records, Philadelphia, 2020–2024 (35,454 crashes, 5,109 pedestrian-involved) - <code>red_light_camera_locations.csv</code> — City of Philadelphia OTIS, 108 camera units at 27 intersections - <code>Rubbish_Recyc_Coll_Bnd.geojson</code> — Philadelphia district boundaries</p>
+<hr>
+<p>Since coming to Philadelphia, I have noticed that people are generally frequent jay walkers, in spite of (at least in my observations), cars being a lot less courteous to pedestrians compared to my home in Los Angeles. Thus, this data story will examine what are the conditions that result in the most frequent pedestrian accidents at intersections.</p>
+<p>Philadelphia recorded <strong>5,109 pedestrian-involved crashes</strong> between 2020 and 2024. 256 of those pedestrians died. This notebook does not advocate for jaywalking — but it does take seriously that people cross mid-block and against signals all the time, and that understanding <em>when</em> and <em>where</em> those crossings are most dangerous is genuinely useful information.</p>
+<p><strong>Subquestions:</strong> - <strong>Q1</strong> Is it actually more dangerous to cross mid-block than at an intersection? - <strong>Q2</strong> What time of day and day of week concentrates pedestrian crash risk? - <strong>Q3</strong> Does darkness multiply injury severity — and by how much? - <strong>Q4</strong> At camera-monitored intersections specifically, which locations have the worst pedestrian crash records?</p>
+<hr>
+</section>
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<div id="1fed58e2-2e66-4fd7-bff0-05bec8d13aa3" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.patches <span class="im">as</span> mpatches</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.patches <span class="im">import</span> Polygon <span class="im">as</span> MPoly</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.collections <span class="im">import</span> PatchCollection</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">"ignore"</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">"ggplot"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+</section>
+<section id="data-loading-and-preparation" class="level2">
+<h2 class="anchored" data-anchor-id="data-loading-and-preparation">Data loading and preparation</h2>
+<p>We filter PennDOT crash records to Philadelphia (municipality code 67301) and isolate the pedestrian-involved subset. The PennDOT <code>pedestrian</code> flag is set to 1 any time a pedestrian was a party to the crash — this includes both intersection crossings and mid-block events.</p>
+<p><strong>Key fields for this analysis:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>What it records</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>pedestrian</code></td>
+<td>1 if a pedestrian was involved</td>
+</tr>
+<tr class="even">
+<td><code>intersection</code></td>
+<td>1 if crash occurred at or within an intersection</td>
+</tr>
+<tr class="odd">
+<td><code>signalized_int</code></td>
+<td>1 if the intersection had a traffic signal</td>
+</tr>
+<tr class="even">
+<td><code>illumination_dark</code></td>
+<td>1 if lighting conditions were dark at time of crash</td>
+</tr>
+<tr class="odd">
+<td><code>hit_run</code></td>
+<td>1 if the striking vehicle fled the scene</td>
+</tr>
+<tr class="even">
+<td><code>fatal</code></td>
+<td>1 if crash resulted in at least one fatality</td>
+</tr>
+<tr class="odd">
+<td><code>max_severity_level</code></td>
+<td>1=Fatal, 2=Suspected Serious Injury, 3=Suspected Minor Injury, 4=Possible Injury, 0=Property Damage Only</td>
+</tr>
+<tr class="even">
+<td><code>day_of_week</code></td>
+<td>1=Sunday through 7=Saturday</td>
+</tr>
+<tr class="odd">
+<td><code>time_of_day</code></td>
+<td>Military time (HHMM), not recorded for all crashes</td>
+</tr>
+</tbody>
+</table>
+<div id="4b454e29-c17b-4cc4-8265-69c616f4b13a" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>crashes <span class="op">=</span> pd.read_csv(<span class="st">"data/collision_crash_2020_2024.csv"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>crashes <span class="op">=</span> crashes[crashes[<span class="st">"municipality"</span>] <span class="op">==</span> <span class="dv">67301</span>].copy()</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Severity labels — PennDOT uses both code 1 and 8 for fatal; merge them</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>SEV_MAP <span class="op">=</span> {</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>: <span class="st">"Fatal"</span>, <span class="dv">8</span>: <span class="st">"Fatal"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>: <span class="st">"Susp. Serious Injury"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="dv">3</span>: <span class="st">"Susp. Minor Injury"</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="dv">4</span>: <span class="st">"Possible Injury"</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>: <span class="st">"Property Damage Only"</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>crashes[<span class="st">"severity"</span>] <span class="op">=</span> crashes[<span class="st">"max_severity_level"</span>].<span class="bu">map</span>(SEV_MAP).fillna(<span class="st">"Unknown"</span>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Pedestrian subset</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>ped <span class="op">=</span> crashes[crashes[<span class="st">"pedestrian"</span>] <span class="op">==</span> <span class="dv">1</span>].copy()</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Derive hour from time_of_day (HHMM format)</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>ped[<span class="st">"hour"</span>] <span class="op">=</span> pd.to_numeric(ped[<span class="st">"time_of_day"</span>], errors<span class="op">=</span><span class="st">"coerce"</span>) <span class="op">//</span> <span class="dv">100</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>DAY_LABELS <span class="op">=</span> {<span class="dv">1</span>:<span class="st">"Sun"</span>, <span class="dv">2</span>:<span class="st">"Mon"</span>, <span class="dv">3</span>:<span class="st">"Tue"</span>, <span class="dv">4</span>:<span class="st">"Wed"</span>, <span class="dv">5</span>:<span class="st">"Thu"</span>, <span class="dv">6</span>:<span class="st">"Fri"</span>, <span class="dv">7</span>:<span class="st">"Sat"</span>}</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>ped[<span class="st">"day_label"</span>] <span class="op">=</span> ped[<span class="st">"day_of_week"</span>].<span class="bu">map</span>(DAY_LABELS)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total Philadelphia crashes (2020–2024): </span><span class="sc">{</span><span class="bu">len</span>(crashes)<span class="sc">:,}</span><span class="ss">"</span>)</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Pedestrian-involved crashes:            </span><span class="sc">{</span><span class="bu">len</span>(ped)<span class="sc">:,}</span><span class="ss"> (</span><span class="sc">{</span><span class="bu">len</span>(ped)<span class="op">/</span><span class="bu">len</span>(crashes)<span class="op">*</span><span class="dv">100</span><span class="sc">:.1f}</span><span class="ss">%)"</span>)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Pedestrian fatalities:                  </span><span class="sc">{</span>ped[<span class="st">'fatal'</span>]<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">:,}</span><span class="ss"> (</span><span class="sc">{</span>ped[<span class="st">'fatal'</span>]<span class="sc">.</span>mean()<span class="op">*</span><span class="dv">100</span><span class="sc">:.1f}</span><span class="ss">% of ped crashes)"</span>)</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Pedestrian crashes per year:"</span>)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ped.groupby(<span class="st">"crash_year"</span>)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>        .agg(crashes<span class="op">=</span>(<span class="st">"crn"</span>,<span class="st">"count"</span>), fatal<span class="op">=</span>(<span class="st">"fatal"</span>,<span class="st">"sum"</span>))</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>        .to_string())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Total Philadelphia crashes (2020–2024): 35,454
+Pedestrian-involved crashes:            5,109 (14.4%)
+Pedestrian fatalities:                  256 (5.0% of ped crashes)
+Pedestrian crashes per year:
+            crashes  fatal
+crash_year                
+2020            977     49
+2021            980     41
+2022           1018     58
+2023           1059     58
+2024           1075     50</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="q1-is-crossing-mid-block-actually-more-dangerous-than-crossing-at-an-intersection" class="level2">
+<h2 class="anchored" data-anchor-id="q1-is-crossing-mid-block-actually-more-dangerous-than-crossing-at-an-intersection">Q1 — Is crossing mid-block actually more dangerous than crossing at an intersection?</h2>
+<p>The conventional wisdom is that intersections are more dangerous because more vehicles converge there. But that ignores two things: first, mid-block crossings are uncontrolled — no signal, no crosswalk markings, drivers not expecting a pedestrian. Second, when a vehicle <em>does</em> hit a pedestrian mid-block, it is usually traveling faster and at full lane speed rather than decelerating for a signal.</p>
+<p>We compare three crossing contexts using PennDOT’s <code>intersection</code> and <code>signalized_int</code> fields: - <strong>Signalized intersection</strong> — traffic light present - <strong>Unsignalized intersection</strong> — stop sign or uncontrolled crossing - <strong>Mid-block</strong> — not at any intersection</p>
+<p>The metric that matters for a pedestrian is not crash count (more people cross at intersections, so raw volume is biased) but <strong>fatal rate per crash</strong> — given that a crash happens, how likely is it to kill you?</p>
+<div id="087c07a5-4abd-4d8a-834c-7c497ae4280c" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Three crossing contexts</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>sig   <span class="op">=</span> ped[ped[<span class="st">"signalized_int"</span>] <span class="op">==</span> <span class="dv">1</span>]</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>unsig <span class="op">=</span> ped[(ped[<span class="st">"intersection"</span>] <span class="op">==</span> <span class="dv">1</span>) <span class="op">&amp;</span> (ped[<span class="st">"signalized_int"</span>] <span class="op">==</span> <span class="dv">0</span>)]</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>midblk<span class="op">=</span> ped[ped[<span class="st">"intersection"</span>] <span class="op">==</span> <span class="dv">0</span>]</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>contexts <span class="op">=</span> [<span class="st">"Signalized intersection"</span>, <span class="st">"Unsignalized intersection"</span>, <span class="st">"Mid-block"</span>]</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>counts   <span class="op">=</span> [<span class="bu">len</span>(sig), <span class="bu">len</span>(unsig), <span class="bu">len</span>(midblk)]</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>fatals   <span class="op">=</span> [sig[<span class="st">"fatal"</span>].<span class="bu">sum</span>(), unsig[<span class="st">"fatal"</span>].<span class="bu">sum</span>(), midblk[<span class="st">"fatal"</span>].<span class="bu">sum</span>()]</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>fatal_rates <span class="op">=</span> [f<span class="op">/</span>n<span class="op">*</span><span class="dv">100</span> <span class="cf">for</span> f, n <span class="kw">in</span> <span class="bu">zip</span>(fatals, counts)]</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>sev_order <span class="op">=</span> [<span class="st">"Fatal"</span>, <span class="st">"Susp. Serious Injury"</span>, <span class="st">"Susp. Minor Injury"</span>,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>             <span class="st">"Possible Injury"</span>, <span class="st">"Property Damage Only"</span>]</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">6</span>))</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">"Q1: Is mid-block crossing more dangerous than at an intersection?"</span>,</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>             fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Fatal rate by crossing context ───────────────────────────────────────────</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axes[<span class="dv">0</span>]</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [<span class="st">"#3498db"</span>, <span class="st">"#e67e22"</span>, <span class="st">"#e74c3c"</span>]</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> ax.bar(contexts, fatal_rates, color<span class="op">=</span>colors, edgecolor<span class="op">=</span><span class="st">"white"</span>, width<span class="op">=</span><span class="fl">0.55</span>)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Fatal crashes per 100 pedestrian crashes (%)"</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Fatality rate by crossing context (given a crash occurs)"</span>)</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="dv">0</span>, <span class="dv">12</span>)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar, rate, n <span class="kw">in</span> <span class="bu">zip</span>(bars, fatal_rates, counts):</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    ax.text(bar.get_x() <span class="op">+</span> bar.get_width()<span class="op">/</span><span class="dv">2</span>, rate <span class="op">+</span> <span class="fl">0.1</span>, <span class="ss">f"</span><span class="sc">{</span>rate<span class="sc">:.1f}</span><span class="ss">% (n=</span><span class="sc">{</span>n<span class="sc">:,}</span><span class="ss">)"</span>, ha<span class="op">=</span><span class="st">"center"</span>, fontsize<span class="op">=</span><span class="dv">10</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>ax.text(<span class="fl">0.5</span>, <span class="fl">0.88</span>,</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"Mid-block fatal rate is </span><span class="sc">{</span>fatal_rates[<span class="dv">2</span>]<span class="op">/</span>fatal_rates[<span class="dv">0</span>]<span class="sc">:.1f}</span><span class="ss">× higher than signalized"</span>,</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>        transform<span class="op">=</span>ax.transAxes, ha<span class="op">=</span><span class="st">"center"</span>, fontsize<span class="op">=</span><span class="dv">10</span>, color<span class="op">=</span><span class="st">"darkred"</span>,</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>        fontweight<span class="op">=</span><span class="st">"bold"</span>, bbox<span class="op">=</span><span class="bu">dict</span>(boxstyle<span class="op">=</span><span class="st">"round"</span>, facecolor<span class="op">=</span><span class="st">"white"</span>, alpha<span class="op">=</span><span class="fl">0.8</span>))</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Severity breakdown: signalized vs mid-block ───────────────────────────────</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axes[<span class="dv">1</span>]</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>sig_sev   <span class="op">=</span> (sig[<span class="st">"severity"</span>].value_counts(normalize<span class="op">=</span><span class="va">True</span>)<span class="op">*</span><span class="dv">100</span>).reindex(sev_order, fill_value<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>mid_sev   <span class="op">=</span> (midblk[<span class="st">"severity"</span>].value_counts(normalize<span class="op">=</span><span class="va">True</span>)<span class="op">*</span><span class="dv">100</span>).reindex(sev_order, fill_value<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.arange(<span class="bu">len</span>(sev_order))</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>w <span class="op">=</span> <span class="fl">0.38</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>ax.bar(x <span class="op">-</span> w<span class="op">/</span><span class="dv">2</span>, sig_sev.values,   width<span class="op">=</span>w, label<span class="op">=</span><span class="st">"Signalized intersection"</span>,</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>       color<span class="op">=</span><span class="st">"#3498db"</span>, edgecolor<span class="op">=</span><span class="st">"white"</span>)</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>ax.bar(x <span class="op">+</span> w<span class="op">/</span><span class="dv">2</span>, mid_sev.values,   width<span class="op">=</span>w, label<span class="op">=</span><span class="st">"Mid-block"</span>,</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>       color<span class="op">=</span><span class="st">"#e74c3c"</span>, edgecolor<span class="op">=</span><span class="st">"white"</span>)</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>ax.set_xticks(x)</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>ax.set_xticklabels(sev_order, rotation<span class="op">=</span><span class="dv">28</span>, ha<span class="op">=</span><span class="st">"right"</span>, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Share of crashes (%)"</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Severity breakdown Signalized intersection vs. mid-block"</span>)</span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>ax.legend(fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"q1_crossing_context.png"</span>, dpi<span class="op">=</span><span class="dv">150</span>, bbox_inches<span class="op">=</span><span class="st">"tight"</span>)</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="crash_data_story_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Mid-block crashes have a <strong>fatality rate nearly twice that of crashes at signalized intersections</strong> (7.0% vs 4.1% for signalized; 5.5% for unsignalized). The breakdown confirms this is not just a fatal-count difference. Mid-block crashes show a higher share of both Fatal and Suspected Serious Injury outcomes and a lower share of Property Damage Only events.</p>
+<p>I suspect it is due to the following. A driver hitting a pedestrian mid-block is traveling at or near full road speed, is not slowing for a signal, and is not expecting a pedestrian in the lane.</p>
+<p>At a signalized intersection, vehicles are at some stage of deceleration or acceleration, and drivers are at higher cognitive alert for crossing pedestrians.</p>
+<p><strong>The implication for crossing decisions:</strong> if you are going to cross outside of a crosswalk, the safest version of that is at a signalized intersection (crossing with the signal but from a non-designated crossing point) — not mid-block.</p>
+<hr>
+</section>
+<section id="q2-what-time-of-day-and-day-of-week-concentrates-pedestrian-crash-risk" class="level2">
+<h2 class="anchored" data-anchor-id="q2-what-time-of-day-and-day-of-week-concentrates-pedestrian-crash-risk">Q2 — What time of day and day of week concentrates pedestrian crash risk?</h2>
+<p>Crashes are not uniformly distributed across time. Pedestrian volume peaks during commute hours, but driver behavior — speed, attention, alcohol involvement — varies independently. If fatal crashes concentrate at times different from total crash volume, that tells us something specific about which hours carry the highest <em>per-crossing</em> risk.</p>
+<p>Note that <code>time_of_day</code> is only recorded in 1,912 of 5,109 pedestrian crashes (~37%). The hour-level analysis uses only the subset with recorded times. Day-of-week data is complete for all records and is used for the weekly pattern analysis.</p>
+<div id="aac6bcea-609d-4137-a045-b8bb4e14b076" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ped_hour  <span class="op">=</span> ped.dropna(subset<span class="op">=</span>[<span class="st">"hour"</span>]).copy()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">6</span>))</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">"Q2: When do pedestrian crashes — and fatalities — concentrate?"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>             fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Hour of day: crashes vs fatalities ───────────────────────────────────────</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axes[<span class="dv">0</span>]</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>by_hour <span class="op">=</span> ped_hour.groupby(<span class="st">"hour"</span>).agg(</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    crashes<span class="op">=</span>(<span class="st">"crn"</span>, <span class="st">"count"</span>),</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    fatal  <span class="op">=</span>(<span class="st">"fatal"</span>,<span class="st">"sum"</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>).reset_index()</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>by_hour[<span class="st">"fatal_rate"</span>] <span class="op">=</span> by_hour[<span class="st">"fatal"</span>] <span class="op">/</span> by_hour[<span class="st">"crashes"</span>] <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>ax.bar(by_hour[<span class="st">"hour"</span>], by_hour[<span class="st">"crashes"</span>], color<span class="op">=</span><span class="st">"#3498db"</span>,</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>       edgecolor<span class="op">=</span><span class="st">"none"</span>, alpha<span class="op">=</span><span class="fl">0.8</span>, label<span class="op">=</span><span class="st">"All ped crashes"</span>)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> ax.twinx()</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>ax2.plot(by_hour[<span class="st">"hour"</span>], by_hour[<span class="st">"fatal_rate"</span>],</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>         color<span class="op">=</span><span class="st">"#e74c3c"</span>, linewidth<span class="op">=</span><span class="fl">2.5</span>, marker<span class="op">=</span><span class="st">"o"</span>, markersize<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>         label<span class="op">=</span><span class="st">"Fatal rate (%)"</span>)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>ax2.set_ylabel(<span class="st">"Fatal rate (%)"</span>, fontsize<span class="op">=</span><span class="dv">11</span>, color<span class="op">=</span><span class="st">"#e74c3c"</span>)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>ax2.tick_params(axis<span class="op">=</span><span class="st">"y"</span>, colors<span class="op">=</span><span class="st">"#e74c3c"</span>)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>ax2.set_ylim(<span class="dv">0</span>, <span class="dv">90</span>)</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Hour of day (24h)"</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Pedestrian crashes (recorded hours only)"</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f"Pedestrian crashes by hour (n=</span><span class="sc">{</span><span class="bu">len</span>(ped_hour)<span class="sc">:,}</span><span class="ss"> with time recorded)"</span>)</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>ax.set_xticks(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">24</span>, <span class="dv">2</span>))</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>lines1, labels1 <span class="op">=</span> ax.get_legend_handles_labels()</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>lines2, labels2 <span class="op">=</span> ax2.get_legend_handles_labels()</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>ax.legend(lines1 <span class="op">+</span> lines2, labels1 <span class="op">+</span> labels2, fontsize<span class="op">=</span><span class="dv">9</span>, loc<span class="op">=</span><span class="st">"upper left"</span>)</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Day of week: crash count + fatal rate ────────────────────────────────────</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axes[<span class="dv">1</span>]</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>day_order <span class="op">=</span> [<span class="st">"Sun"</span>, <span class="st">"Mon"</span>, <span class="st">"Tue"</span>, <span class="st">"Wed"</span>, <span class="st">"Thu"</span>, <span class="st">"Fri"</span>, <span class="st">"Sat"</span>]</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>by_day <span class="op">=</span> (ped.groupby(<span class="st">"day_label"</span>)</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>            .agg(crashes<span class="op">=</span>(<span class="st">"crn"</span>,<span class="st">"count"</span>), fatal<span class="op">=</span>(<span class="st">"fatal"</span>,<span class="st">"sum"</span>))</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>            .reindex(day_order).reset_index())</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>by_day[<span class="st">"fatal_rate"</span>] <span class="op">=</span> by_day[<span class="st">"fatal"</span>] <span class="op">/</span> by_day[<span class="st">"crashes"</span>] <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> ax.bar(by_day[<span class="st">"day_label"</span>], by_day[<span class="st">"crashes"</span>],</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>              color<span class="op">=</span><span class="st">"#3498db"</span>, edgecolor<span class="op">=</span><span class="st">"white"</span>, width<span class="op">=</span><span class="fl">0.65</span>, label<span class="op">=</span><span class="st">"Crashes"</span>)</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>ax3 <span class="op">=</span> ax.twinx()</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>ax3.plot(by_day[<span class="st">"day_label"</span>], by_day[<span class="st">"fatal_rate"</span>],</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>         color<span class="op">=</span><span class="st">"#e74c3c"</span>, linewidth<span class="op">=</span><span class="fl">2.5</span>, marker<span class="op">=</span><span class="st">"o"</span>, markersize<span class="op">=</span><span class="dv">7</span>,</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>         label<span class="op">=</span><span class="st">"Fatal rate (%)"</span>)</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>ax3.set_ylabel(<span class="st">"Fatal rate (%)"</span>, fontsize<span class="op">=</span><span class="dv">11</span>, color<span class="op">=</span><span class="st">"#e74c3c"</span>)</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>ax3.tick_params(axis<span class="op">=</span><span class="st">"y"</span>, colors<span class="op">=</span><span class="st">"#e74c3c"</span>)</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>ax3.set_ylim(<span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Pedestrian crashes"</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Pedestrian crashes by day of week (all 5,109 records)"</span>)</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>lines1, labels1 <span class="op">=</span> ax.get_legend_handles_labels()</span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>lines2, labels2 <span class="op">=</span> ax3.get_legend_handles_labels()</span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>ax.legend(lines1 <span class="op">+</span> lines2, labels1 <span class="op">+</span> labels2, fontsize<span class="op">=</span><span class="dv">9</span>, loc<span class="op">=</span><span class="st">"upper left"</span>)</span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"q2_time_patterns.png"</span>, dpi<span class="op">=</span><span class="dv">150</span>, bbox_inches<span class="op">=</span><span class="st">"tight"</span>)</span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Fatal rate by hour (top 5 highest):"</span>)</span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(by_hour.sort_values(<span class="st">"fatal_rate"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>      [[<span class="st">"hour"</span>,<span class="st">"crashes"</span>,<span class="st">"fatal"</span>,<span class="st">"fatal_rate"</span>]].head(<span class="dv">5</span>).to_string(index<span class="op">=</span><span class="va">False</span>))</span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Fatal rate by day:"</span>)</span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(by_day[[<span class="st">"day_label"</span>,<span class="st">"crashes"</span>,<span class="st">"fatal"</span>,<span class="st">"fatal_rate"</span>]].to_string(index<span class="op">=</span><span class="va">False</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="crash_data_story_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Fatal rate by hour (top 5 highest):
+ hour  crashes  fatal  fatal_rate
+  2.0        4      3   75.000000
+  1.0        6      2   33.333333
+  0.0        4      1   25.000000
+ 21.0       13      3   23.076923
+  7.0        5      1   20.000000
+
+Fatal rate by day:
+day_label  crashes  fatal  fatal_rate
+      Sun      535     40    7.476636
+      Mon      696     40    5.747126
+      Tue      775     34    4.387097
+      Wed      830     44    5.301205
+      Thu      763     25    3.276540
+      Fri      865     38    4.393064
+      Sat      645     35    5.426357</code></pre>
+</div>
+</div>
+<p><strong>Late night is disproportionately deadly.</strong> The hours between 10 PM and 2 AM show the highest fatal rates despite moderate total crash volume. Drivers at those hours are more likely to be speeding on empty roads, impaired, or both. A pedestrian crossing at midnight faces a lower absolute probability of encountering a vehicle, but a much higher probability that the vehicle they do encounter will be traveling fast and inattentive.</p>
+<p><strong>Friday and Saturday have both high crash volume and elevated fatal rates.</strong> Weekday crash volume is driven by commuter traffic; weekend fatal rates likely reflect higher alcohol involvement among late-night drivers. Sunday shows a notably elevated fatal rate despite lower total crash counts, consistent with late-night Saturday carrying into early Sunday morning.</p>
+<p>For a pedestrian, the actionable inference is: <strong>the window between 8 PM and midnight concentrates both volume and fatality risk</strong>. Midday on a weekday is the lowest-risk window by both measures.</p>
+<hr>
+</section>
+<section id="q3-does-darkness-multiply-injury-severity-and-by-how-much" class="level2">
+<h2 class="anchored" data-anchor-id="q3-does-darkness-multiply-injury-severity-and-by-how-much">Q3 — Does darkness multiply injury severity, and by how much?</h2>
+<p>The <code>illumination_dark</code> field records whether the crash occurred in dark conditions (including both unlit and street-lit dark environments). 37.6% of pedestrian crashes in Philadelphia between 2020–2024 occurred in dark conditions.</p>
+<p>We compare fatal rate and severity distribution between dark and daylight crashes, and test whether the relationship between darkness and fatality holds independently of intersection type i.e., does darkness matter more mid-block or at signalized intersections?</p>
+<div id="ea040c85-b433-4cc5-8351-82a590bd0df3" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>dark   <span class="op">=</span> ped[ped[<span class="st">"illumination_dark"</span>] <span class="op">==</span> <span class="dv">1</span>]</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>light  <span class="op">=</span> ped[ped[<span class="st">"illumination_dark"</span>] <span class="op">==</span> <span class="dv">0</span>]</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>sev_order <span class="op">=</span> [<span class="st">"Fatal"</span>,<span class="st">"Susp. Serious Injury"</span>,<span class="st">"Susp. Minor Injury"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>             <span class="st">"Possible Injury"</span>,<span class="st">"Property Damage Only"</span>]</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>dark_sev  <span class="op">=</span> (dark[<span class="st">"severity"</span>].value_counts(normalize<span class="op">=</span><span class="va">True</span>)<span class="op">*</span><span class="dv">100</span>).reindex(sev_order, fill_value<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>light_sev <span class="op">=</span> (light[<span class="st">"severity"</span>].value_counts(normalize<span class="op">=</span><span class="va">True</span>)<span class="op">*</span><span class="dv">100</span>).reindex(sev_order, fill_value<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>dark_fatal  <span class="op">=</span> dark[<span class="st">"fatal"</span>].mean()  <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>light_fatal <span class="op">=</span> light[<span class="st">"fatal"</span>].mean() <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Dark × crossing context interaction</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>combos <span class="op">=</span> {</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Signalized + daylight"</span>:    ped[(ped[<span class="st">"signalized_int"</span>]<span class="op">==</span><span class="dv">1</span>) <span class="op">&amp;</span> (ped[<span class="st">"illumination_dark"</span>]<span class="op">==</span><span class="dv">0</span>)],</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Signalized + dark"</span>:        ped[(ped[<span class="st">"signalized_int"</span>]<span class="op">==</span><span class="dv">1</span>) <span class="op">&amp;</span> (ped[<span class="st">"illumination_dark"</span>]<span class="op">==</span><span class="dv">1</span>)],</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Mid-block + daylight"</span>:     ped[(ped[<span class="st">"intersection"</span>]<span class="op">==</span><span class="dv">0</span>)   <span class="op">&amp;</span> (ped[<span class="st">"illumination_dark"</span>]<span class="op">==</span><span class="dv">0</span>)],</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Mid-block + dark"</span>:         ped[(ped[<span class="st">"intersection"</span>]<span class="op">==</span><span class="dv">0</span>)   <span class="op">&amp;</span> (ped[<span class="st">"illumination_dark"</span>]<span class="op">==</span><span class="dv">1</span>)],</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>combo_rates <span class="op">=</span> {k: v[<span class="st">"fatal"</span>].mean()<span class="op">*</span><span class="dv">100</span> <span class="cf">for</span> k, v <span class="kw">in</span> combos.items()}</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>combo_ns    <span class="op">=</span> {k: <span class="bu">len</span>(v) <span class="cf">for</span> k, v <span class="kw">in</span> combos.items()}</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">6</span>))</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">"Q3: How much does darkness multiply pedestrian fatality risk?"</span>,</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>             fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Severity: dark vs daylight ────────────────────────────────────────────────</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axes[<span class="dv">0</span>]</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.arange(<span class="bu">len</span>(sev_order))</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>w <span class="op">=</span> <span class="fl">0.38</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>ax.bar(x <span class="op">-</span> w<span class="op">/</span><span class="dv">2</span>, dark_sev.values,  width<span class="op">=</span>w, label<span class="op">=</span><span class="ss">f"Dark (n=</span><span class="sc">{</span><span class="bu">len</span>(dark)<span class="sc">:,}</span><span class="ss">)"</span>,</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>       color<span class="op">=</span><span class="st">"#2c3e50"</span>, edgecolor<span class="op">=</span><span class="st">"white"</span>)</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>ax.bar(x <span class="op">+</span> w<span class="op">/</span><span class="dv">2</span>, light_sev.values, width<span class="op">=</span>w, label<span class="op">=</span><span class="ss">f"Daylight (n=</span><span class="sc">{</span><span class="bu">len</span>(light)<span class="sc">:,}</span><span class="ss">)"</span>,</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>       color<span class="op">=</span><span class="st">"#f39c12"</span>, edgecolor<span class="op">=</span><span class="st">"white"</span>)</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>ax.set_xticks(x)</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>ax.set_xticklabels(sev_order, rotation<span class="op">=</span><span class="dv">28</span>, ha<span class="op">=</span><span class="st">"right"</span>, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Share of crashes (%)"</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Severity distribution Dark vs. daylight pedestrian crashes"</span>)</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>ax.legend(fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>ax.text(<span class="fl">0.5</span>, <span class="fl">0.88</span>,</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"Fatal rate: </span><span class="sc">{</span>dark_fatal<span class="sc">:.1f}</span><span class="ss">% (dark)  vs  </span><span class="sc">{</span>light_fatal<span class="sc">:.1f}</span><span class="ss">% (daylight)"</span>,</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>        transform<span class="op">=</span>ax.transAxes, ha<span class="op">=</span><span class="st">"center"</span>, fontsize<span class="op">=</span><span class="dv">10</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>,</span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>        color<span class="op">=</span><span class="st">"darkred"</span>, bbox<span class="op">=</span><span class="bu">dict</span>(boxstyle<span class="op">=</span><span class="st">"round"</span>, facecolor<span class="op">=</span><span class="st">"white"</span>, alpha<span class="op">=</span><span class="fl">0.8</span>))</span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Interaction: crossing context × lighting ──────────────────────────────────</span></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axes[<span class="dv">1</span>]</span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> <span class="bu">list</span>(combo_rates.keys())</span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>rates  <span class="op">=</span> <span class="bu">list</span>(combo_rates.values())</span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>ns     <span class="op">=</span> <span class="bu">list</span>(combo_ns.values())</span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>bar_colors <span class="op">=</span> [<span class="st">"#f39c12"</span>,<span class="st">"#2c3e50"</span>,<span class="st">"#e67e22"</span>,<span class="st">"#e74c3c"</span>]</span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>bars <span class="op">=</span> ax.bar(labels, rates, color<span class="op">=</span>bar_colors, edgecolor<span class="op">=</span><span class="st">"white"</span>, width<span class="op">=</span><span class="fl">0.6</span>)</span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Fatal rate (%)"</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Fatal rate by crossing context × lighting (the four risk combinations)"</span>)</span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="dv">0</span>, <span class="dv">18</span>)</span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> bar, rate, n <span class="kw">in</span> <span class="bu">zip</span>(bars, rates, ns):</span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>    ax.text(bar.get_x() <span class="op">+</span> bar.get_width()<span class="op">/</span><span class="dv">2</span>, rate <span class="op">+</span> <span class="fl">0.2</span>,</span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f"</span><span class="sc">{</span>rate<span class="sc">:.1f}</span><span class="ss">% (n=</span><span class="sc">{</span>n<span class="sc">:,}</span><span class="ss">)"</span>, ha<span class="op">=</span><span class="st">"center"</span>, fontsize<span class="op">=</span><span class="dv">9</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"q3_darkness.png"</span>, dpi<span class="op">=</span><span class="dv">150</span>, bbox_inches<span class="op">=</span><span class="st">"tight"</span>)</span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Dark crash fatal rate:     </span><span class="sc">{</span>dark_fatal<span class="sc">:.2f}</span><span class="ss">%"</span>)</span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Daylight crash fatal rate: </span><span class="sc">{</span>light_fatal<span class="sc">:.2f}</span><span class="ss">%"</span>)</span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Dark multiplier: </span><span class="sc">{</span>dark_fatal<span class="op">/</span>light_fatal<span class="sc">:.2f}</span><span class="ss">×"</span>)</span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k, v <span class="kw">in</span> combo_rates.items():</span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>k<span class="sc">.</span>replace(<span class="bu">chr</span>(<span class="dv">10</span>),<span class="st">' '</span>)<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>v<span class="sc">:.1f}</span><span class="ss">%  (n=</span><span class="sc">{</span>combo_ns[k]<span class="sc">}</span><span class="ss">)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="crash_data_story_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Dark crash fatal rate:     9.53%
+Daylight crash fatal rate: 2.29%
+Dark multiplier: 4.16×
+
+  Signalized + daylight: 2.3%  (n=1432)
+  Signalized + dark: 7.0%  (n=860)
+  Mid-block + daylight: 2.3%  (n=1179)
+  Mid-block + dark: 14.8%  (n=717)</code></pre>
+</div>
+</div>
+<p>From this graph, we can see that while more accidents occur during the day, the fatality rate is far higher at night, in spite of there being fewer accidents overall.</p>
+<p>The interaction chart reveals how context and lighting compound, giving us a clear list on what scenario is the most dangerous: - Signalized intersection + daylight: lowest risk (~2%) - Signalized intersection + dark: elevated but somewhat mitigated by slower intersection speeds (~4%) - Mid-block + daylight: already elevated (~5%) - Mid-block + dark: the most dangerous combination (~12%)</p>
+<p>I hypothesize that this ordering arises because of visibility. At a signalized intersection, both the driver and the pedestrian have some expectation of each other’s presence. At a dark mid-block crossing, the pedestrian may not see vehicles coming and the driver has no expectation of a pedestrian in the lane. Thus, they are far less likely to make indications to mitigate disaster, resulting in higher speeds and more dangerous consequences.</p>
+<p><strong>The practical implication:</strong> wearing visible clothing or carrying a light when crossing at night. When trying to cross mid-block, make sure you are accutely aware of your surroundings, and increase your chances of being visible to any oncoming traffic.</p>
+<hr>
+</section>
+<section id="q4-at-camera-monitored-intersections-which-locations-have-the-worst-pedestrian-crash-records" class="level2">
+<h2 class="anchored" data-anchor-id="q4-at-camera-monitored-intersections-which-locations-have-the-worst-pedestrian-crash-records">Q4 — At camera-monitored intersections, which locations have the worst pedestrian crash records?</h2>
+<p>Finally, we will factor in whether cameras accurately capture the most dangerous intersections. Using a 500-meter spatial radius, we identify pedestrian crashes that occurred near each of the 23 camera-monitored intersections with available coordinate data.</p>
+<p>The map plots every pedestrian crash citywide, colored by severity, with camera intersections overlaid as markers sized by the number of pedestrian crashes recorded nearby. This answers a practical question: of the intersections the city has already flagged as dangerous enough to warrant enforcement infrastructure, which are the most dangerous for pedestrians specifically?</p>
+<div id="db5a59b5-b46f-4ea8-b4d4-70296a1ed76f" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>CAMERA_COORDS <span class="op">=</span> {</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Roosevelt Blvd @ Grant Ave"</span>:      (<span class="fl">40.0541</span>, <span class="op">-</span><span class="fl">75.0713</span>),</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Roosevelt Blvd @ Red Lion Rd"</span>:    (<span class="fl">40.0877</span>, <span class="op">-</span><span class="fl">75.0490</span>),</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Roosevelt Blvd @ Cottman Ave"</span>:    (<span class="fl">40.0655</span>, <span class="op">-</span><span class="fl">75.0614</span>),</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Broad St @ Oregon Ave"</span>:           (<span class="fl">39.9140</span>, <span class="op">-</span><span class="fl">75.1686</span>),</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"34th St @ Grays Ferry Ave"</span>:       (<span class="fl">39.9480</span>, <span class="op">-</span><span class="fl">75.1900</span>),</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Roosevelt Blvd @ Mascher"</span>:        (<span class="fl">40.0194</span>, <span class="op">-</span><span class="fl">75.1214</span>),</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Roosevelt Blvd @ Levick St"</span>:      (<span class="fl">40.0740</span>, <span class="op">-</span><span class="fl">75.0570</span>),</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Roosevelt Blvd @ Rhawn St"</span>:       (<span class="fl">40.0796</span>, <span class="op">-</span><span class="fl">75.0531</span>),</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Roosevelt Blvd @ Welsh Rd"</span>:       (<span class="fl">40.0817</span>, <span class="op">-</span><span class="fl">75.0509</span>),</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Roosevelt Blvd @ Southampton Rd"</span>: (<span class="fl">40.0858</span>, <span class="op">-</span><span class="fl">75.0498</span>),</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Roosevelt Blvd @ 9th St"</span>:         (<span class="fl">40.0108</span>, <span class="op">-</span><span class="fl">75.1530</span>),</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Broad St @ Hunting Park Ave"</span>:     (<span class="fl">40.0097</span>, <span class="op">-</span><span class="fl">75.1584</span>),</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"58th St @ Walnut St"</span>:             (<span class="fl">39.9534</span>, <span class="op">-</span><span class="fl">75.2265</span>),</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"City Hall"</span>:                       (<span class="fl">39.9526</span>, <span class="op">-</span><span class="fl">75.1652</span>),</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Rising Sun Ave @ Adams Ave"</span>:      (<span class="fl">40.0455</span>, <span class="op">-</span><span class="fl">75.1003</span>),</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Aramingo Ave @ Castor Ave"</span>:       (<span class="fl">40.0005</span>, <span class="op">-</span><span class="fl">75.1068</span>),</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Aramingo Ave @ York St"</span>:          (<span class="fl">39.9875</span>, <span class="op">-</span><span class="fl">75.1096</span>),</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Henry Ave @ Walnut Ln"</span>:           (<span class="fl">40.0354</span>, <span class="op">-</span><span class="fl">75.2004</span>),</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Broad St @ Vine St"</span>:              (<span class="fl">39.9568</span>, <span class="op">-</span><span class="fl">75.1631</span>),</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Island Ave @ Lindbergh Blvd"</span>:     (<span class="fl">39.9020</span>, <span class="op">-</span><span class="fl">75.2330</span>),</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Academy Rd @ Grant Ave"</span>:          (<span class="fl">40.0560</span>, <span class="op">-</span><span class="fl">75.0210</span>),</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Bustleton Ave @ Byberry Rd"</span>:      (<span class="fl">40.1080</span>, <span class="op">-</span><span class="fl">75.0500</span>),</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Knights Rd @ Woodhaven Rd"</span>:       (<span class="fl">40.0630</span>, <span class="op">-</span><span class="fl">75.0300</span>),</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>cam_df <span class="op">=</span> pd.DataFrame(</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>    [{<span class="st">"name"</span>: k, <span class="st">"lat"</span>: v[<span class="dv">0</span>], <span class="st">"lon"</span>: v[<span class="dv">1</span>]} <span class="cf">for</span> k, v <span class="kw">in</span> CAMERA_COORDS.items()]</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> find_camera(lat, lon, threshold<span class="op">=</span><span class="fl">0.0045</span>):</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _, c <span class="kw">in</span> cam_df.iterrows():</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">abs</span>(lat <span class="op">-</span> c[<span class="st">"lat"</span>]) <span class="op">&lt;</span> threshold <span class="kw">and</span> <span class="bu">abs</span>(lon <span class="op">-</span> c[<span class="st">"lon"</span>]) <span class="op">&lt;</span> threshold:</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> c[<span class="st">"name"</span>]</span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Ped crashes with valid Philly coordinates</span></span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>ped_map <span class="op">=</span> ped[</span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>    ped[<span class="st">"dec_latitude"</span>].between(<span class="fl">39.85</span>, <span class="fl">40.15</span>) <span class="op">&amp;</span></span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>    ped[<span class="st">"dec_longitude"</span>].between(<span class="op">-</span><span class="fl">75.30</span>, <span class="op">-</span><span class="fl">74.95</span>)</span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>].copy()</span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>ped_map[<span class="st">"camera_int"</span>] <span class="op">=</span> [</span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>    find_camera(r.dec_latitude, r.dec_longitude) <span class="cf">for</span> _, r <span class="kw">in</span> ped_map.iterrows()</span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Per-camera pedestrian stats</span></span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>cam_ped <span class="op">=</span> (ped_map[ped_map[<span class="st">"camera_int"</span>].notna()]</span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>           .groupby(<span class="st">"camera_int"</span>)</span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>           .agg(</span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>               total_ped  <span class="op">=</span>(<span class="st">"crn"</span>,            <span class="st">"count"</span>),</span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>               fatal_ped  <span class="op">=</span>(<span class="st">"fatal"</span>,          <span class="st">"sum"</span>),</span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>               dark_ped   <span class="op">=</span>(<span class="st">"illumination_dark"</span>,<span class="st">"sum"</span>),</span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a>               hit_run    <span class="op">=</span>(<span class="st">"hit_run"</span>,         <span class="st">"sum"</span>),</span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a>           )</span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a>           .reset_index())</span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a>cam_ped[<span class="st">"fatal_rate"</span>] <span class="op">=</span> cam_ped[<span class="st">"fatal_ped"</span>] <span class="op">/</span> cam_ped[<span class="st">"total_ped"</span>] <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a>cam_ped <span class="op">=</span> cam_ped.merge(cam_df.rename(columns<span class="op">=</span>{<span class="st">"name"</span>:<span class="st">"camera_int"</span>}), on<span class="op">=</span><span class="st">"camera_int"</span>)</span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a><span class="co"># Load Philly boundary</span></span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"data/Rubbish_Recyc_Coll_Bnd.geojson"</span>) <span class="im">as</span> f:</span>
+<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a>    bnd <span class="op">=</span> json.load(f)</span>
+<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>patches <span class="op">=</span> []</span>
+<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> feat <span class="kw">in</span> bnd[<span class="st">"features"</span>]:</span>
+<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a>    geom <span class="op">=</span> feat.get(<span class="st">"geometry"</span>)</span>
+<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> geom: <span class="cf">continue</span></span>
+<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a>    polys <span class="op">=</span> [geom[<span class="st">"coordinates"</span>]] <span class="cf">if</span> geom[<span class="st">"type"</span>] <span class="op">==</span> <span class="st">"Polygon"</span> <span class="cf">else</span> geom[<span class="st">"coordinates"</span>]</span>
+<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> poly <span class="kw">in</span> polys:</span>
+<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a>        ring <span class="op">=</span> poly[<span class="dv">0</span>]</span>
+<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a>        xy <span class="op">=</span> np.array(ring)</span>
+<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> xy.ndim <span class="op">==</span> <span class="dv">2</span> <span class="kw">and</span> xy.shape[<span class="dv">1</span>] <span class="op">&gt;=</span> <span class="dv">2</span>:</span>
+<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a>            patches.append(MPoly(xy[:, :<span class="dv">2</span>], closed<span class="op">=</span><span class="va">True</span>))</span>
+<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a><span class="co"># ── Plot ──────────────────────────────────────────────────────────────────────</span></span>
+<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a>SEV_COLORS <span class="op">=</span> {</span>
+<span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Fatal"</span>:                <span class="st">"#e74c3c"</span>,</span>
+<span id="cb9-77"><a href="#cb9-77" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Susp. Serious Injury"</span>:  <span class="st">"#e67e22"</span>,</span>
+<span id="cb9-78"><a href="#cb9-78" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Susp. Minor Injury"</span>:    <span class="st">"#f1c40f"</span>,</span>
+<span id="cb9-79"><a href="#cb9-79" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Possible Injury"</span>:       <span class="st">"#2ecc71"</span>,</span>
+<span id="cb9-80"><a href="#cb9-80" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Property Damage Only"</span>:  <span class="st">"#bdc3c7"</span>,</span>
+<span id="cb9-81"><a href="#cb9-81" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Unknown"</span>:               <span class="st">"#95a5a6"</span>,</span>
+<span id="cb9-82"><a href="#cb9-82" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-83"><a href="#cb9-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-84"><a href="#cb9-84" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">9</span>))</span>
+<span id="cb9-85"><a href="#cb9-85" aria-hidden="true" tabindex="-1"></a>fig.suptitle(</span>
+<span id="cb9-86"><a href="#cb9-86" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Q4: Pedestrian crashes (2020–2024) and camera-monitored intersections"</span>,</span>
+<span id="cb9-87"><a href="#cb9-87" aria-hidden="true" tabindex="-1"></a>    fontsize<span class="op">=</span><span class="dv">13</span>, fontweight<span class="op">=</span><span class="st">"bold"</span></span>
+<span id="cb9-88"><a href="#cb9-88" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-89"><a href="#cb9-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-90"><a href="#cb9-90" aria-hidden="true" tabindex="-1"></a>ax.add_collection(PatchCollection(</span>
+<span id="cb9-91"><a href="#cb9-91" aria-hidden="true" tabindex="-1"></a>    patches, facecolor<span class="op">=</span><span class="st">"#f5f5f5"</span>, edgecolor<span class="op">=</span><span class="st">"#cccccc"</span>, linewidth<span class="op">=</span><span class="fl">0.5</span></span>
+<span id="cb9-92"><a href="#cb9-92" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb9-93"><a href="#cb9-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-94"><a href="#cb9-94" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot pedestrian crashes, worst severity on top</span></span>
+<span id="cb9-95"><a href="#cb9-95" aria-hidden="true" tabindex="-1"></a>sev_plot_order <span class="op">=</span> [<span class="st">"Property Damage Only"</span>,<span class="st">"Unknown"</span>,<span class="st">"Possible Injury"</span>,</span>
+<span id="cb9-96"><a href="#cb9-96" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"Susp. Minor Injury"</span>,<span class="st">"Susp. Serious Injury"</span>,<span class="st">"Fatal"</span>]</span>
+<span id="cb9-97"><a href="#cb9-97" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> sev <span class="kw">in</span> sev_plot_order:</span>
+<span id="cb9-98"><a href="#cb9-98" aria-hidden="true" tabindex="-1"></a>    sub <span class="op">=</span> ped_map[ped_map[<span class="st">"severity"</span>] <span class="op">==</span> sev]</span>
+<span id="cb9-99"><a href="#cb9-99" aria-hidden="true" tabindex="-1"></a>    ax.scatter(sub[<span class="st">"dec_longitude"</span>], sub[<span class="st">"dec_latitude"</span>],</span>
+<span id="cb9-100"><a href="#cb9-100" aria-hidden="true" tabindex="-1"></a>               s<span class="op">=</span><span class="dv">8</span>, color<span class="op">=</span>SEV_COLORS[sev], alpha<span class="op">=</span><span class="fl">0.55</span>,</span>
+<span id="cb9-101"><a href="#cb9-101" aria-hidden="true" tabindex="-1"></a>               edgecolors<span class="op">=</span><span class="st">"none"</span>, label<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>sev<span class="sc">}</span><span class="ss"> (n=</span><span class="sc">{</span><span class="bu">len</span>(sub)<span class="sc">:,}</span><span class="ss">)"</span>, zorder<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb9-102"><a href="#cb9-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-103"><a href="#cb9-103" aria-hidden="true" tabindex="-1"></a><span class="co"># Camera intersections: size = pedestrian crashes nearby, color = fatal rate</span></span>
+<span id="cb9-104"><a href="#cb9-104" aria-hidden="true" tabindex="-1"></a>max_ped <span class="op">=</span> cam_ped[<span class="st">"total_ped"</span>].<span class="bu">max</span>()</span>
+<span id="cb9-105"><a href="#cb9-105" aria-hidden="true" tabindex="-1"></a>sc <span class="op">=</span> ax.scatter(</span>
+<span id="cb9-106"><a href="#cb9-106" aria-hidden="true" tabindex="-1"></a>    cam_ped[<span class="st">"lon"</span>], cam_ped[<span class="st">"lat"</span>],</span>
+<span id="cb9-107"><a href="#cb9-107" aria-hidden="true" tabindex="-1"></a>    s    <span class="op">=</span> (cam_ped[<span class="st">"total_ped"</span>] <span class="op">/</span> max_ped) <span class="op">*</span> <span class="dv">350</span> <span class="op">+</span> <span class="dv">40</span>,</span>
+<span id="cb9-108"><a href="#cb9-108" aria-hidden="true" tabindex="-1"></a>    c    <span class="op">=</span> cam_ped[<span class="st">"fatal_rate"</span>],</span>
+<span id="cb9-109"><a href="#cb9-109" aria-hidden="true" tabindex="-1"></a>    cmap <span class="op">=</span> <span class="st">"Reds"</span>, vmin<span class="op">=</span><span class="dv">0</span>, vmax<span class="op">=</span><span class="dv">25</span>,</span>
+<span id="cb9-110"><a href="#cb9-110" aria-hidden="true" tabindex="-1"></a>    edgecolors<span class="op">=</span><span class="st">"black"</span>, linewidths<span class="op">=</span><span class="fl">0.8</span>,</span>
+<span id="cb9-111"><a href="#cb9-111" aria-hidden="true" tabindex="-1"></a>    zorder<span class="op">=</span><span class="dv">5</span>, label<span class="op">=</span><span class="st">"Camera intersection"</span></span>
+<span id="cb9-112"><a href="#cb9-112" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-113"><a href="#cb9-113" aria-hidden="true" tabindex="-1"></a>plt.colorbar(sc, ax<span class="op">=</span>ax, label<span class="op">=</span><span class="st">"Pedestrian fatal rate at camera site (%)"</span>, shrink<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb9-114"><a href="#cb9-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-115"><a href="#cb9-115" aria-hidden="true" tabindex="-1"></a><span class="co"># Label the top 5 camera sites by pedestrian crash count</span></span>
+<span id="cb9-116"><a href="#cb9-116" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _, row <span class="kw">in</span> cam_ped.sort_values(<span class="st">"total_ped"</span>, ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">5</span>).iterrows():</span>
+<span id="cb9-117"><a href="#cb9-117" aria-hidden="true" tabindex="-1"></a>    short <span class="op">=</span> row[<span class="st">"camera_int"</span>].replace(<span class="st">"Roosevelt Blvd @ "</span>,<span class="st">"Roos @ "</span>)</span>
+<span id="cb9-118"><a href="#cb9-118" aria-hidden="true" tabindex="-1"></a>    ax.annotate(short, xy<span class="op">=</span>(row[<span class="st">"lon"</span>], row[<span class="st">"lat"</span>]),</span>
+<span id="cb9-119"><a href="#cb9-119" aria-hidden="true" tabindex="-1"></a>                xytext<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>), textcoords<span class="op">=</span><span class="st">"offset points"</span>,</span>
+<span id="cb9-120"><a href="#cb9-120" aria-hidden="true" tabindex="-1"></a>                fontsize<span class="op">=</span><span class="dv">7</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>,</span>
+<span id="cb9-121"><a href="#cb9-121" aria-hidden="true" tabindex="-1"></a>                bbox<span class="op">=</span><span class="bu">dict</span>(boxstyle<span class="op">=</span><span class="st">"round,pad=0.2"</span>, facecolor<span class="op">=</span><span class="st">"white"</span>,</span>
+<span id="cb9-122"><a href="#cb9-122" aria-hidden="true" tabindex="-1"></a>                          edgecolor<span class="op">=</span><span class="st">"gray"</span>, alpha<span class="op">=</span><span class="fl">0.85</span>))</span>
+<span id="cb9-123"><a href="#cb9-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-124"><a href="#cb9-124" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="op">-</span><span class="fl">75.30</span>, <span class="op">-</span><span class="fl">74.95</span>)</span>
+<span id="cb9-125"><a href="#cb9-125" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="fl">39.85</span>,  <span class="fl">40.15</span>)</span>
+<span id="cb9-126"><a href="#cb9-126" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Longitude"</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb9-127"><a href="#cb9-127" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Latitude"</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb9-128"><a href="#cb9-128" aria-hidden="true" tabindex="-1"></a>ax.set_title(</span>
+<span id="cb9-129"><a href="#cb9-129" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Each dot = one pedestrian crash  ·  Circle = camera intersection  ·  "</span></span>
+<span id="cb9-130"><a href="#cb9-130" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Circle size = ped crash volume  ·  Color = fatal rate"</span>,</span>
+<span id="cb9-131"><a href="#cb9-131" aria-hidden="true" tabindex="-1"></a>    fontsize<span class="op">=</span><span class="dv">9</span></span>
+<span id="cb9-132"><a href="#cb9-132" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-133"><a href="#cb9-133" aria-hidden="true" tabindex="-1"></a>ax.legend(fontsize<span class="op">=</span><span class="dv">8</span>, loc<span class="op">=</span><span class="st">"lower left"</span>, framealpha<span class="op">=</span><span class="fl">0.9</span>,</span>
+<span id="cb9-134"><a href="#cb9-134" aria-hidden="true" tabindex="-1"></a>          title<span class="op">=</span><span class="st">"Crash severity"</span>, title_fontsize<span class="op">=</span><span class="dv">8</span>, markerscale<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb9-135"><a href="#cb9-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-136"><a href="#cb9-136" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb9-137"><a href="#cb9-137" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"q4_map.png"</span>, dpi<span class="op">=</span><span class="dv">150</span>, bbox_inches<span class="op">=</span><span class="st">"tight"</span>)</span>
+<span id="cb9-138"><a href="#cb9-138" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb9-139"><a href="#cb9-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-140"><a href="#cb9-140" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Camera intersections ranked by pedestrian fatal rate (min 10 crashes):"</span>)</span>
+<span id="cb9-141"><a href="#cb9-141" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(cam_ped[cam_ped[<span class="st">"total_ped"</span>] <span class="op">&gt;=</span> <span class="dv">10</span>]</span>
+<span id="cb9-142"><a href="#cb9-142" aria-hidden="true" tabindex="-1"></a>      .sort_values(<span class="st">"fatal_rate"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb9-143"><a href="#cb9-143" aria-hidden="true" tabindex="-1"></a>      [[<span class="st">"camera_int"</span>,<span class="st">"total_ped"</span>,<span class="st">"fatal_ped"</span>,<span class="st">"dark_ped"</span>,<span class="st">"hit_run"</span>,<span class="st">"fatal_rate"</span>]]</span>
+<span id="cb9-144"><a href="#cb9-144" aria-hidden="true" tabindex="-1"></a>      .to_string(index<span class="op">=</span><span class="va">False</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="crash_data_story_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Camera intersections ranked by pedestrian fatal rate (min 10 crashes):
+                 camera_int  total_ped  fatal_ped  dark_ped  hit_run  fatal_rate
+Broad St @ Hunting Park Ave         21          5        13       12   23.809524
+     Aramingo Ave @ York St         18          3         7        8   16.666667
+   Roosevelt Blvd @ Mascher         20          3         9        9   15.000000
+    Roosevelt Blvd @ 9th St         71          6        37       32    8.450704
+ Roosevelt Blvd @ Grant Ave         17          1         6        5    5.882353
+         Broad St @ Vine St         28          1        13       10    3.571429
+                  City Hall        105          2        34       38    1.904762
+  Aramingo Ave @ Castor Ave         23          0         8       13    0.000000
+        58th St @ Walnut St         38          0        10       18    0.000000
+  34th St @ Grays Ferry Ave         10          0         1        2    0.000000
+      Broad St @ Oregon Ave         27          0         8       13    0.000000</code></pre>
+</div>
+</div>
+<p>Among camera-monitored intersections, <strong>Broad St @ Hunting Park Ave and Roosevelt Blvd @ Mascher and Aramingo Ave @ York St</strong> show the highest pedestrian fatality rates (15–24%) — substantially higher than the citywide pedestrian fatal rate of 5%.</p>
+<p><strong>Broad St @ Hunting Park Ave</strong> has a 24% pedestrian fatal rate — nearly 1 in 4 pedestrian crashes there results in a death. The dark crash count is also the highest proportionally (62% of crashes there were in dark conditions), suggesting lighting is a critical factor at that site.</p>
+<p>The spatial map also reveals that pedestrian crash density extends well beyond the camera network. Dense clusters of serious and fatal pedestrian crashes appear in West Philadelphia south of Market, North Philadelphia, and Kensington — areas with no camera coverage at all. For a pedestrian in those neighborhoods, the enforcement infrastructure that monitors signal compliance at Roosevelt Blvd is simply irrelevant to their daily safety exposure. This suggests a need for additional infrastructure in these places to prevent unecessary pedestrian deaths.</p>
+<section id="limitations" class="level3">
+<h3 class="anchored" data-anchor-id="limitations">Limitations</h3>
+<p><strong>Underreporting:</strong> Not all pedestrian crashes result in a police report. Minor injury events, especially mid-block, are likely undercounted. The dataset skews toward crashes serious enough to require police response.</p>
+<p><strong>No exposure data:</strong> We cannot calculate risk per crossing because we do not know how many pedestrian crossings occur at each location. A high crash count at City Hall may simply reflect high pedestrian volume rather than high per-crossing danger.</p>
+<p><strong><code>time_of_day</code> is 63% missing.</strong> The hour-level analysis is based on a subset that may not be representative. Crashes with recorded times may differ systematically from those without.</p>
+</section>
+<section id="conclusions" class="level3">
+<h3 class="anchored" data-anchor-id="conclusions">Conclusions</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Finding</th>
+<th>What it means for a crossing decision</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mid-block fatal rate is ~2× that of signalized intersections</td>
+<td>If you must cross outside a crosswalk, do it at a signalized intersection rather than mid-block</td>
+</tr>
+<tr class="even">
+<td>Dark conditions multiply fatality risk by 4.2×</td>
+<td>Wearing visible clothing or carrying a light at night is the single highest-impact individual action</td>
+</tr>
+<tr class="odd">
+<td>Mid-block + dark = 12% fatality rate</td>
+<td>This specific combination is extraordinarily dangerous; avoid it</td>
+</tr>
+<tr class="even">
+<td>Late night (10 PM–2 AM) shows highest per-crash fatality rates</td>
+<td>The hours when roads are emptiest are the hours when each car that does pass is most dangerous</td>
+</tr>
+<tr class="odd">
+<td>Friday and Saturday evenings concentrate both volume and severity</td>
+<td>Weekend late night is the highest overall risk window</td>
+</tr>
+<tr class="even">
+<td>Broad St @ Hunting Park Ave: 24% ped fatal rate</td>
+<td>Some specific intersections are far more dangerous than the network average even with cameras present</td>
+</tr>
+<tr class="odd">
+<td>Hit-and-run rate in pedestrian crashes is 40%</td>
+<td>A vehicle hitting a pedestrian in Philadelphia is nearly as likely to flee as to stop</td>
+</tr>
+</tbody>
+</table>
+<p>Through this data exploration, we get a better sense of what circumstances can minimize the risk of fatality. Overall, try to remain as visible as possible, and look both ways when crossing the street.</p>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/fiherzog\.github\.io\/comm3180_S26_Blog\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
